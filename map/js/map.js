@@ -1,20 +1,35 @@
-function generateMap() {
-    var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
-    var options = { //지도를 생성할 때 필요한 기본 옵션
-        center: new daum.maps.LatLng(37.6, 127), //지도의 중심좌표.
-        level: 13
-    };
+class Map {
+    constructor() {
+        this.map = new daum.maps.Map(
+            document.getElementById('map'),
+            {
+                center: new daum.maps.LatLng(37.6, 127), //지도의 중심좌표.
+                level: 13
+            }
+        );
+        this.map.setDraggable(true);
+        this.map.setZoomable(true);
+        this.geocoder = new daum.maps.services.Geocoder();
+    }
 
-    map = new daum.maps.Map(container, options); // 지도 호출
+    searchDetailAddrFromCoords(coords, callback) {
+        this.geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
+    }
 
-    map.setDraggable(true);
-    map.setZoomable(true);
+    getRoadAddress() {
+
+        // TODO : GPS에서 데이터 가져오는 기능 추가
+
+        this.searchDetailAddrFromCoords(this.map.getCenter(), function (result, status) {
+            if (status === daum.maps.services.Status.OK) {
+                this.current = result[0];
+            }
+        });
+    }
 }
 
-function getNearShelter() {
-
-}
 
 document.addEventListener("DOMContentLoaded", function () {
-    generateMap();
+    let map = new Map();
+    map.getRoadAddress();
 });
