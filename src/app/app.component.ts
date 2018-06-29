@@ -44,9 +44,9 @@ export class MyApp {
   openPage(page) {
     let profileModal;
   
-    if("EqHistory" == page.title){
+    if("지진기록" == page.title){
       profileModal = this.modalCtrl.create("EqHistoryPage");
-    } else if("EqBehavior" == page.title){
+    } else if("지진행동지침" == page.title){
       profileModal = this.modalCtrl.create("EqBehaviorPage");
     }
     profileModal.onDidDismiss(data =>{
