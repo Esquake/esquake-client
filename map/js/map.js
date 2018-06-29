@@ -63,9 +63,12 @@ class Map {
     }
 
     getNearShelter(key) {
-        // TODO : json에서 해당하는 범위에 속하는 대피소 얻는 기능 추가해야함
+        // json에서 해당하는 범위에 속하는 대피소 
+        var shelter = JSON.parse(shelter);
+        var shelter_lat = shelter[6].lat; 
+        var shelter_lng = shelter[7].lng;
 
-        var rNearShelter = [];
+        var rNearShelter = shelter.records;
 
         // 좌표 랜덤으로 생성
         for (let i = 0; i < key; i++) {
