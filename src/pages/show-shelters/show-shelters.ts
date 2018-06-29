@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 
 /**
  * Generated class for the ShowSheltersPage page.
@@ -14,9 +14,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'show-shelters.html',
 })
 export class ShowSheltersPage {
-
-  
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl : ViewController) {
     console.log("modal page");
   }
 
@@ -26,24 +24,42 @@ export class ShowSheltersPage {
   
   private datas = [
     {
-      title: "사용자 관리",
-      subTitle: "User Management",
+      schoolName: "사용자 관리",
+      capacity: 5,
+      address: "강원도 강릉시 강릉대로587번길 68 Style",
+      phone : "033-640-5527",
       id: "001"
     },
     {
-      title: "로그 관리",
-      subTitle: "Log Management",
+      schoolName: "로그 관리",
+      capacity: 5,
+      address: "강원도 강릉시 강릉대로587번길 68 Style",
+      phone : "033-640-5527",
       id: "002"
     },
     {
-      title: "받은 파일 관리",
-      subTitle: "Recieved File Management",
+      schoolName: "받은 파일 관리",
+      capacity: 5,
+      address: "강원도 강릉시 강릉대로587번길 68 Style",
+      phone : "033-640-5527",
       id: "003"
     },
     {
-      title: "저장된 파일 관리",
-      subTitle: "Saved File Management",
+      schoolName: "저장된 파일 관리",
+      capacity: 5,
+      address: "강원도 강릉시 강릉대로587번길 68 Style",
+      phone : "033-640-5527",
       id: "004"
     },
   ];
+
+
+
+  dismiss(){
+    this.viewCtrl.dismiss();
+  }
+
+  pathFind(){
+    console.log("path find");
+  }
 }
