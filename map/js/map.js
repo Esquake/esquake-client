@@ -87,8 +87,8 @@ class Map {
 
         var position = null;
         var shelterMarkerImage = new daum.maps.MarkerImage(
-            "../resource/shelterMarkerImage.png",
-            new daum.maps.Size(64, 69),
+            "./../resource/shelterMarkerImage.png",
+            new daum.maps.Size(25, 30),
             {offset: new daum.maps.Point(27, 69)}
         );
 
@@ -100,11 +100,10 @@ class Map {
             bounds.extend(position);
 
             this.shelter[i]["marker"] = new daum.maps.Marker({
-                position: position
+                position: position,
+                image: shelterMarkerImage
             });
             this.shelter[i]["marker"].setMap(this.map);
-
-            console.log(i, this.shelter[i], this.shelter[i]["lat"], this.shelter[i]["lng"]);
         }
 
         // 현재 위치 마커 생성
