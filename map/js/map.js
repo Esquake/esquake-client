@@ -6,6 +6,8 @@ class Map {
             lng: 127
         };
 
+        this.shelter = [];
+
         this.map = new daum.maps.Map(
             document.getElementById(elementId),
             {
@@ -76,7 +78,11 @@ class Map {
             return a.dist - b.dist;
         }).slice(0, max);
 
+        this.shelter = rShelter;
         return rShelter;
+    }
+
+    generateMarker() {
 
     }
 }
