@@ -14,6 +14,7 @@ import {
   MapTypeControl,
   ControlPosition,
   OverlayMapTypeId,
+  Geocoder,
   KakaoEvents,
   Marker,
   OverlayType,
@@ -22,7 +23,7 @@ import {
   Size,
   Point,
   MarkerImage,
- 
+  Status,
 } from 'kakao-maps-sdk';
 
 
@@ -53,7 +54,6 @@ export class HomePage {
     console.log(products);
     //this.maps = window['daum'];
 
-    
     this.current = {
       lat: 37.6,
       lng: 127
@@ -93,6 +93,7 @@ export class HomePage {
                 // console.log(res);
               });
 
+              this.geocoder = new Geocoder();
               this.getNearestShelter(5);
               this.generateMarker();
 
@@ -111,13 +112,14 @@ export class HomePage {
   private maps:any;
   private title :any;
   private current:any;
+  private geocoder:any;
 
   private shelter:any;
 
       // resp.coords.longitude lng
   
   private _productURL = 'api/products/products.json';    
- 
+
   getLocalData() {
 
     
@@ -135,6 +137,7 @@ export class HomePage {
     
     profileModal.onDidDismiss(data => {
       console.log(data);
+      this.current["lat"];
       this.title = data;
     });
     profileModal.present();
@@ -156,21 +159,22 @@ export class HomePage {
 
       this.current["lat"] = resp.coords.latitude;
       this.current["lng"] = resp.coords.longitude;
-      this.title = this.current["lat"];
 
       console.log(resp.coords.latitude);
       console.log(resp.coords.longitude);
+
       this.updateMap();
-     }).catch((error) => {
-       console.log('Error getting location', error);
-     });
-     let watch = this.geoLocate.watchPosition();
-     watch.subscribe((data) => {
+      this.getRoadAddress(); 
+    }).catch((error) => {
+      console.log('Error getting location', error);
+    });
+    let watch = this.geoLocate.watchPosition();
+    watch.subscribe((data) => {
       // data can be a set of coordinates, or an error (if an error occurred).
       // data.coords.latitude
       // data.coords.longitude
       console.log(data);
-     });
+    });
   }
 
   updateMap() {
@@ -187,86 +191,6 @@ export class HomePage {
     
   }
 
-  addToolbox() {
-    // 도형 스타일을 변수로 설정합니다
-    var strokeColor = '#39f',
-      fillColor = '#cce6ff',
-      fillOpacity = 0.5,
-      hintStrokeStyle = 'dash';
-
-    var options = {
-      // Drawing Manager를 생성할 때 사용할 옵션입니다
-      map: this._kakaoMapsProvider.getMapInstance(), // Drawing Manager로 그리기 요소를 그릴 map 객체입니다
-      drawingMode: [
-        OverlayType.MARKER,
-        OverlayType.ARROW,
-        OverlayType.POLYLINE,
-        OverlayType.RECTANGLE,
-        OverlayType.CIRCLE,
-        OverlayType.ELLIPSE,
-        OverlayType.POLYGON,
-      ],
-      // 사용자에게 제공할 그리기 가이드 툴팁입니다
-      // 사용자에게 도형을 그릴때, 드래그할때, 수정할때 가이드 툴팁을 표시하도록 설정합니다
-      guideTooltip: ['draw', 'drag', 'edit'],
-      markerOptions: {
-        draggable: true,
-        removable: true,
-      },
-      arrowOptions: {
-        draggable: true,
-        removable: true,
-        strokeColor: strokeColor,
-        hintStrokeStyle: hintStrokeStyle,
-      },
-      polylineOptions: {
-        draggable: true,
-        removable: true,
-        strokeColor: strokeColor,
-        hintStrokeStyle: hintStrokeStyle,
-      },
-      rectangleOptions: {
-        draggable: true,
-        removable: true,
-        strokeColor: strokeColor,
-        fillColor: fillColor,
-        fillOpacity: fillOpacity,
-      },
-      circleOptions: {
-        draggable: true,
-        removable: true,
-        strokeColor: strokeColor,
-        fillColor: fillColor,
-        fillOpacity: fillOpacity,
-      },
-      ellipseOptions: {
-        draggable: true,
-        removable: true,
-        strokeColor: strokeColor,
-        fillColor: fillColor,
-        fillOpacity: fillOpacity,
-      },
-      polygonOptions: {
-        draggable: true,
-        removable: true,
-        strokeColor: strokeColor,
-        fillColor: fillColor,
-        fillOpacity: fillOpacity,
-      },
-    };
-
-    // 위에 작성한 옵션으로 Drawing Manager를 생성합니다
-    var manager = new DrawingManager(options);
-
-    // Toolbox를 생성합니다.
-    // Toolbox 생성 시 위에서 생성한 DrawingManager 객체를 설정합니다.
-    // DrawingManager 객체를 꼭 설정해야만 그리기 모드와 매니저의 상태를 툴박스에 설정할 수 있습니다.
-    var toolbox = new Toolbox({ drawingManager: manager });
-
-    // 지도 위에 Toolbox를 표시합니다
-    // daum.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOP은 위 가운데를 의미합니다.
-    this._kakaoMapsProvider.getMapInstance().addControl(toolbox.getElement(), ControlPosition.TOP);
-  }
 
   getRandomInRange(from, to, fixed) {    
     return (Math.random() * (to - from) + from).toFixed(fixed) * 1;    
@@ -310,6 +234,18 @@ export class HomePage {
     this.shelter = rShelter;
     return rShelter;
   }
+
+  searchDetailAddrFromCoords(coords, callback) {
+    this.geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
+  }
+
+  getRoadAddress() {
+    this.searchDetailAddrFromCoords(new LatLng(this.current.lat, this.current.lng), function (result, status) {
+        if (status === Status.OK) {
+          console.log(result[0]["address"]["address_name"]);
+        }
+    });
+}
 
   generateMarker() {
     // 대피소 마커 생성
@@ -394,6 +330,4 @@ export class HomePage {
     this.mapConfig = option;
     this.flagg = !this.flagg;
   }
-
-  
 }
