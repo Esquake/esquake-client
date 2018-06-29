@@ -1,14 +1,8 @@
 <ion-menu [content]="content">
-  <ion-header>
-    <ion-toolbar>
-      <ion-title>Menu</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <ion-content>
+  <ion-content class="no-scroll">
     <ion-list>
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-        <img [src]="p.src"> {{p.title}}
+        <div style="display:flex; font-size: 16px;"><img [src]="p.src" style="margin-right:32px; width:21px; height:21px;">{{p.title}}</div>
       </button>
     </ion-list>
   </ion-content>
