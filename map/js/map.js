@@ -1,6 +1,5 @@
 class Map {
     constructor(elementId) {
-
         this.current = {
             lat: 37.6,
             lng: 127
@@ -83,7 +82,6 @@ class Map {
     }
 
     generateMarker() {
-
         // 대피소 마커 생성
         var position = null;
         var bounds = new daum.maps.LatLngBounds();
@@ -92,17 +90,26 @@ class Map {
                 parseFloat(this.shelter[i]["lat"]),
                 parseFloat(this.shelter[i]["lng"])
             );
+            bounds.extend(position);
 
             this.shelter[i]["marker"] = new daum.maps.Marker({
                 position: position
             });
-
-            bounds.extend(position);
             this.shelter[i]["marker"].setMap(this.map);
 
             console.log(i, this.shelter[i], this.shelter[i]["lat"], this.shelter[i]["lng"]);
         }
+
+        // 현재 위치 마커 생성
+        position = new daum.maps.LatLng(this.current["lat"], this.current["lng"]);
+        bounds.extend(position);
         this.map.setBounds(bounds);
+
+        this.current["marker"] = new daum.maps.Marker({
+            position: position
+        });
+
+        this.current["marker"].setMap(this.map);
     }
 }
 
