@@ -1,6 +1,9 @@
-import urllib.parse, urllib.request
-import xmltodict, json
+import urllib.parse
+import urllib.request
+import xmltodict
+import json
 import time
+import datetime
 
 
 class Crawler:
@@ -11,8 +14,10 @@ class Crawler:
         pass
 
     def setTime(self):
-        self.param["fromTmFc"] = "20170628"
-        self.param["toTmFc"] = "20180629"
+        now = datetime.datetime.now()
+        self.param["fromTmFc"] = (now - datetime.timedelta(days=1)).strftime("%Y%m%d")
+        self.param["toTmFc"] = now.strftime("%Y%m%d")
+        pass
 
     def run(self):
         while True:
@@ -23,6 +28,10 @@ class Crawler:
 
             result = urllib.request.urlopen(target).read().decode('utf-8')
             response = json.loads(json.dumps(xmltodict.parse(result)))
+
+            if response["response"]["body"]["items"] is None:
+                continue
+                pass
 
             for item in response["response"]["body"]["items"]["item"]:
                 print(item)
