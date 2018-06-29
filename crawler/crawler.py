@@ -4,6 +4,9 @@ import xmltodict
 import json
 import time
 import datetime
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import firestore
 
 
 class Crawler:
@@ -11,6 +14,11 @@ class Crawler:
         self.url = url
         self.param = param
         self.interval = 1
+
+        # Use a service account
+        cred = credentials.Certificate('./serviceAccountKey.json')
+        self.app = firebase_admin.initialize_app(cred)
+        self.db = firestore.client()
         pass
 
     def setTime(self):
