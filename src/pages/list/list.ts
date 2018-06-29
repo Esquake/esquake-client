@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ModalController } from 'ionic-angular';
 
 @Component({
   selector: 'page-list',
@@ -10,7 +10,9 @@ export class ListPage {
   icons: string[];
   items: Array<{title: string, note: string, icon: string}>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, 
+    public modalCtrl : ModalController
+  ) {
     // If we navigated to this page, we will have an item available as a nav param
     this.selectedItem = navParams.get('item');
 
@@ -33,5 +35,14 @@ export class ListPage {
     this.navCtrl.push(ListPage, {
       item: item
     });
+  }
+
+  clickList(){
+    let profileModal = this.modalCtrl.create("EqHistoryPage");
+    console.log("clickList");
+    profileModal.onDidDismiss(data =>{
+      console.log("data");
+    });
+    profileModal.present();
   }
 }

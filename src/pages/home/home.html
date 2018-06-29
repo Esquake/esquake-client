@@ -1,19 +1,27 @@
 <ion-header>
+
+  <script type="text/javascript" src="./js/shelter.json"></script>
   <ion-navbar>
-    
+
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    
-    <ion-title (click)="showModal()">어떤 동네ADSAD</ion-title>
-    
+    <div>
+      <div style="float:left; margin-left:20%; margin-right:4px; margin-top:4px; width:60%; text-align:center;">
+        <span (click)="showModal()" style="font-size:14px; line-height:7px;">공주시 {{title}}</span>
+      </div>
+
+    </div>
+    <img src = "../../assets/icon/bottomBar.png" width="20" height="20" style="display:block; margin-top:4px; margin-right:48px;" (click)="showModal()">
+
     <ion-buttons end>
-        
-        <img src="../../assets/icon/ic_GPS2.png" width="40" height="40" (click)="updateLocate()">
-      </ion-buttons>
+        <img src="../../assets/icon/icGPS.png" width="20" height="20" style="margin-right:24px;"(click)="updateLocate()">
+    </ion-buttons>
+
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
   <img src="../../assets/icon/ic_GPS2.png" width="40" height="40" (click)="showCardModal()">
+  <kakao-maps [mapConfig]="mapConfig"></kakao-maps>
 </ion-content>

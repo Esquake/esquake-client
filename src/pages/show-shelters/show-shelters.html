@@ -15,10 +15,14 @@
 
 <ion-content padding>
     <ion-item *ngFor="let data of datas">
-
-        <div>{{data.title}}</div>
-        <div>{{data.subTitle}}</div>
-        <button ion-button round>Primary Round</button>
-      </ion-item>
+      <div style="font-size:10px">최대 수용 인원 : {{data.capacity}}</div>
+      <div style="font-size:20px">{{data.schoolName}}</div>
+      <div style="font-size:16px">{{data.address}}</div>
+      <div>
+        <span style="font-size:16px;color:blue">{{data.phone}}</span>
+        <img src="../../assets/imgs/group.png" style="float:right;width:84;height:30;" (click)="findPath()">
+      </div>
+      
+    </ion-item>
 </ion-content>
 
