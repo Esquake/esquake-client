@@ -12,15 +12,15 @@
   </ion-navbar>
 
 </ion-header>
-    <ion-content padding>
-        <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
-        <ion-item *ngFor="let data of datas" (click)="setLocation(data)">
-            <span>
-                
-              <img src="../../assets/icon/icMarker.png" width="12" height="16.8">
-            </span>
-            <span>{{data.title}}</span>
+<ion-content padding>
+    <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+    <ion-item *ngFor="let data of datas" (click)="setLocation(data)">
+        <span>
+            
+          <img src="../../assets/icon/icMarker.png" width="12" height="16.8">
+        </span>
+        <span>{{data.title}}</span>
 
-            <img src="../../assets/icon/icCancel.png" width=20 height=20 (click)="deleteItem()" style="float:right">
-          </ion-item>
-    </ion-content>
+        <img src="../../assets/icon/icCancel.png" width=20 height=20 (click)="deleteItem()" style="float:right">
+      </ion-item>
+</ion-content>
