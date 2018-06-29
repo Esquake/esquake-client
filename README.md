@@ -64,7 +64,7 @@ ESQUAKE는  지진 발생 알림과 동시에 가장 가까운 대피소를 알�
 
 </br></br>
 
-## Usage Example
+## Usage Guide
 
 ```
 pip install xmltodict
