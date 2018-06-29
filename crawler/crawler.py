@@ -19,6 +19,7 @@ class Crawler:
         cred = credentials.Certificate('./serviceAccountKey.json')
         self.app = firebase_admin.initialize_app(cred)
         self.db = firestore.client()
+        self.users_ref = self.db.collection(u'earthquake')
         pass
 
     def setTime(self):
@@ -28,7 +29,9 @@ class Crawler:
         pass
 
     def run(self):
-        while True:
+        cnt = 0
+        while cnt != 0:
+            cnt += 1
             time.sleep(self.interval)
 
             self.setTime()
@@ -43,6 +46,7 @@ class Crawler:
 
             for item in response["response"]["body"]["items"]["item"]:
                 print(item)
+                self.users_ref.add(item)
                 pass
             pass
         pass
