@@ -14,7 +14,7 @@
 </ion-header>
     <ion-content padding>
         <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
-        <ion-item *ngFor="let data of datas">
+        <ion-item *ngFor="let data of datas" (click)="setLocation(data)">
             <span>
                 
               <img src="../../assets/icon/icMarker.png" width="12" height="16.8">
