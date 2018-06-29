@@ -9,6 +9,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { Geolocation } from '@ionic-native/geolocation';
+import { File } from '@ionic-native/file';
 //import { MapProvider } from '../providers/map/map';
 
 @NgModule({
@@ -31,7 +32,7 @@ import { Geolocation } from '@ionic-native/geolocation';
   providers: [
     StatusBar,
     SplashScreen,
-    Geolocation,
+    Geolocation, File,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     //MapProvider
   ]

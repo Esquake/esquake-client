@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { NavController, ModalController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
+import { File } from '@ionic-native/file';
+
+import * as products from "../../assets/shelter.json";
+
 
 import {
   KakaoMapsProvider,
@@ -39,10 +43,14 @@ export class HomePage {
   constructor(public navCtrl: NavController, public modalCtrl : ModalController,
     public _kakaoMapsProvider: KakaoMapsProvider,
     public geoLocate : Geolocation,
-    
+    public file : File,
+    //public http : Http,
+  
   ) {
     this.initPage();
     this.initializeMap();
+
+    console.log(products);
     //this.maps = window['daum'];
 
     
@@ -108,17 +116,20 @@ export class HomePage {
 
       // resp.coords.longitude lng
   
-
+  private _productURL = 'api/products/products.json';    
+ 
   getLocalData() {
-    //this.file.readAsText(this.file.applicationDirectory + "www/assets", "data.json").then(...)
+
+    
+    //console.log(this.file.dataDirectory);
+    //this.file.readAsText(this.file.applicationDirectory + "www/assets", "data.json").then(...);
     //https://ionicframework.com/docs/native/file/
   }
   initPage(){
     console.log("init page");
     this.title = "geo module";
-
-    
   }
+
   showModal(){
     let profileModal = this.modalCtrl.create("SearchShelterPage");
     
@@ -261,20 +272,7 @@ export class HomePage {
   }
 
   getNearShelter(key) {
-    var rNearShelter = [];
-
-    for (let index = 0; index < key; index++) {
-      rNearShelter.push(
-        {
-          i:index,
-          lat: this.getRandomInRange(37.3, 37.9, 2),
-          lng: this.getRandomInRange(126.6, 127.4, 2)
-        }
-      );
-      
-    }
-    
-    return rNearShelter;
+    return products["records"];
   }
 
   getDistance(from, to) {
@@ -395,4 +393,6 @@ export class HomePage {
     this.mapConfig = option;
     this.flagg = !this.flagg;
   }
+
+  
 }
