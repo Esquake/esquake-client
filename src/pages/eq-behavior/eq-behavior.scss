@@ -5,3 +5,8 @@ page-eq-behavior {
 .toolbar-background{
   background-color: white;
 }
+
+
+.no-scroll .scroll-content{
+    overflow: hidden;
+  }

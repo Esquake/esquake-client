@@ -14,7 +14,7 @@
 
 </ion-header>
 
-<ion-content padding no-bounce>
+<ion-content padding class="no-scroll">
   <ion-slides pager (ionSlideDidChange)="slideChanged()">
     <ion-slide *ngFor="let slide of slides">
       <img [src]="slide.image" class="slide-image"/>
