@@ -15,8 +15,6 @@
         
     </div>
     
-
-    
     <ion-buttons end>
         
         <img src="../../assets/icon/ic_GPS2.png" width="40" height="40" (click)="updateLocate()">
@@ -24,7 +22,8 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <img src="../../assets/icon/ic_GPS2.png" width="40" height="40" (click)="showCardModal()">
-  <kakao-maps [mapConfig]="mapConfig"></kakao-maps>
+<ion-content>
+  <kakao-maps [mapConfig]="mapConfig" style="max-width:100% !important;"></kakao-maps>
 </ion-content>
+<img src="../../assets/icon/ic_GPS2.png" width="40" height="40" (click)="showCardModal()">
+
