@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { NavController, ModalController } from 'ionic-angular';
-//import { HttpClient } from '@angular/common/http';
+import { Geolocation } from '@ionic-native/geolocation';
+
 import {
   KakaoMapsProvider,
   LatLng,
+  LatLngBounds,
   MapTypeId,
   MapTypeControl,
   ControlPosition,
@@ -13,6 +15,10 @@ import {
   OverlayType,
   DrawingManager,
   Toolbox,
+  Size,
+  Point,
+  MarkerImage,
+ 
 } from 'kakao-maps-sdk';
 
 
@@ -21,6 +27,8 @@ import {
   selector: 'page-home',
   templateUrl: 'home.html'
 })
+
+
 export class HomePage {
   position;
   mapConfig = { width: '100%', height: '50%' };
@@ -29,24 +37,31 @@ export class HomePage {
   KaKaoJavascriptAPIKey = '172283aea22a2859764d0f5c96a12445';
   
   constructor(public navCtrl: NavController, public modalCtrl : ModalController,
-    public _kakaoMapsProvider: KakaoMapsProvider
+    public _kakaoMapsProvider: KakaoMapsProvider,
+    public geoLocate : Geolocation,
+    
   ) {
     this.initPage();
     this.initializeMap();
-    this.maps = window['daum'];
+    //this.maps = window['daum'];
+
+    
+    this.current = {
+      lat: 37.6,
+      lng: 127
+    };
 
     _kakaoMapsProvider
       .loadKakaoMapSDK(this.KaKaoJavascriptAPIKey)
       .then(
         () => {
           let mapConfig = {
-            center: new LatLng(33.450701, 126.570667),
+            center: new LatLng(this.current.lat, this.current.lng),
             mapTypeId: MapTypeId.ROADMAP,
           };
           _kakaoMapsProvider
             .init('kakaomaps-div', mapConfig)
             .then(() => {
-              _kakaoMapsProvider.getMapInstance().addControl(new MapTypeControl(), ControlPosition.BOTTOM);
               _kakaoMapsProvider.getMapInstance().addOverlayMapTypeId(OverlayMapTypeId.BICYCLE_HYBRID);
 
               let events: KakaoEvents[] = [
@@ -70,7 +85,9 @@ export class HomePage {
                 // console.log(res);
               });
 
-              this.marker = new Marker({ position: new LatLng(33.450701, 126.570667) });
+              this.getNearestShelter(5);
+              this.generateMarker();
+
             })
             .catch();
         },
@@ -85,21 +102,26 @@ export class HomePage {
   private daum:any;
   private maps:any;
   private title :any;
+  private current:any;
+
+  private shelter:any;
+
+      // resp.coords.longitude lng
   
 
   getLocalData() {
-    /*this.httpClient.get('../assets/data/cards.json').map(res => res.json()).subscribe(data => 
-    {
-      console.log(data);
-    });*/  
+    //this.file.readAsText(this.file.applicationDirectory + "www/assets", "data.json").then(...)
+    //https://ionicframework.com/docs/native/file/
   }
   initPage(){
     console.log("init page");
     this.title = "geo module";
+
+    
   }
   showModal(){
     let profileModal = this.modalCtrl.create("SearchShelterPage");
-    console.log("soicem");
+    
     profileModal.onDidDismiss(data => {
       console.log(data);
       this.title = data;
@@ -124,7 +146,37 @@ export class HomePage {
   }
 
   updateLocate(){
-    console.log("updateLocate");
+    console.log("read me");
+    this.geoLocate.getCurrentPosition().then((resp) => {
+      // resp.coords.latitude lat 
+      // resp.coords.longitude lng
+
+      this.current["lat"] = resp.coords.latitude;
+      this.current["lng"] = resp.coords.longitude;
+
+      console.log(resp.coords.latitude);
+      console.log(resp.coords.longitude);
+      this.updateMap();
+     }).catch((error) => {
+       console.log('Error getting location', error);
+     });
+     let watch = this.geoLocate.watchPosition();
+     watch.subscribe((data) => {
+      // data can be a set of coordinates, or an error (if an error occurred).
+      // data.coords.latitude
+      // data.coords.longitude
+      console.log(data);
+     });
+  }
+
+  updateMap() {
+    for (let index = 0; index < this.shelter.length; index++) {
+      this.shelter[index]["marker"].setMap(null);
+    }
+    this.shelter = [];
+    this.current["marker"].setMap(null);
+    this.getNearestShelter(3);
+    this.generateMarker();
   }
   
   initializeMap(){
@@ -211,10 +263,111 @@ export class HomePage {
     // daum.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOP은 위 가운데를 의미합니다.
     this._kakaoMapsProvider.getMapInstance().addControl(toolbox.getElement(), ControlPosition.TOP);
   }
-  
+
+  getRandomInRange(from, to, fixed) {    
+    return (Math.random() * (to - from) + from).toFixed(fixed) * 1;    
+  }
+
+  getNearShelter(key) {
+    var rNearShelter = [];
+
+    for (let index = 0; index < key; index++) {
+      rNearShelter.push(
+        {
+          i:index,
+          lat: this.getRandomInRange(37.3, 37.9, 2),
+          lng: this.getRandomInRange(126.6, 127.4, 2)
+        }
+      );
+      
+    }
+    
+    return rNearShelter;
+  }
+
+  getDistance(from, to) {
+    var theta = from.lng - to.lng;
+    var dist = Math.sin(this.deg2rad(from.lat)) * Math.sin(this.deg2rad(to.lat))
+        + Math.cos(this.deg2rad(from.lat)) * Math.cos(this.deg2rad(to.lat))
+        * Math.cos(this.deg2rad(theta));
+
+    dist = Math.acos(dist);
+    dist = this.rad2deg(dist);
+    dist *= 60* 1852;
+    return dist;
+  }
+
+  deg2rad(deg) {
+      return (deg * Math.PI / 180.0);
+  }
+
+  rad2deg(rad) {
+      return (rad * 180.0 / Math.PI);
+  }
+
+  getNearestShelter(max) {
+    var local_shelter = this.getNearShelter(20);
+    for (let index = 0; index < local_shelter.length; index++) {
+      local_shelter[index]["dist"] = this.getDistance(this.current, local_shelter[index]);
+      //console.log(local_shelter[index]);
+    }
+
+    var rShelter = local_shelter.sort(function (a, b) {
+      return a.dist - b.dist;
+    }).slice(0, max);
+
+    this.shelter = rShelter;
+    return rShelter;
+  }
+
+  generateMarker() {
+    // 대피소 마커 생성
+    var bounds = new LatLngBounds(
+      new LatLng(this.current["lat"], this.current["lng"]),
+      new LatLng(this.current["lat"], this.current["lng"])
+    );
+
+    var position = null;
+    var shelterMarkerImage = new MarkerImage(
+      "../../assets/imgs/shelterMarkerImage.png",
+      new Size(25, 32),
+      {offset: new Point(0, 0)}
+    );
+
+    for (let i = 0; i < this.shelter.length; i++) {
+      position = new LatLng(
+      parseFloat(this.shelter[i]["lat"]),
+      parseFloat(this.shelter[i]["lng"])
+        );
+        bounds.extend(position);
+        
+        this.shelter[i]["marker"] = new Marker({
+            position: position,
+            image: shelterMarkerImage
+        });
+        this.shelter[i]["marker"].setMap(this._kakaoMapsProvider.getMapInstance());
+    }
+
+    // 현재 위치 마커 생성
+    position = new LatLng(this.current["lat"], this.current["lng"]);
+    bounds.extend(position);
+
+    this.current["marker"] = new Marker({
+        position: position,
+        image: new MarkerImage(
+            "../../assets/imgs/currentMarkerImage.png",
+            new Size(40, 40),
+            {offset: new Point(0, 0)}
+        )
+    });
+
+    this.current["marker"].setMap(this._kakaoMapsProvider.getMapInstance());
+}
+
   removeMarker() {
     this.marker.setMap(null);
   }
+  
   addMarker() {
     this.marker.setMap(this._kakaoMapsProvider.getMapInstance());
   }
@@ -250,6 +403,4 @@ export class HomePage {
     this.mapConfig = option;
     this.flagg = !this.flagg;
   }
-  
-
 }
