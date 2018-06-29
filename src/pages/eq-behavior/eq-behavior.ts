@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, ViewController, Slides } from 'ionic-angular';
 
 /**
  * Generated class for the EqBehaviorPage page.
@@ -14,11 +14,25 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
   templateUrl: 'eq-behavior.html',
 })
 export class EqBehaviorPage {
-
+  
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public viewCtrl: ViewController
   ) {
+    
+    
   }
+
+  slides = [
+    {
+      image: "../../assets/imgs/guide9.png",
+    },
+    {
+      image: "../../assets/imgs/guide10.png",
+    },
+    {
+      image: "../../assets/imgs/guide11.png",
+    }
+  ];
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad EqBehaviorPage');
@@ -26,6 +40,12 @@ export class EqBehaviorPage {
 
   dismiss(){
     this.viewCtrl.dismiss();
+  }
+
+
+  
+  slideChanged(){
+    
   }
 
 }
