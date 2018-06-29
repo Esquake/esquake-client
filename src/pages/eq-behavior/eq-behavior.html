@@ -6,15 +6,13 @@
 -->
 <ion-header>
 
-  
   <ion-navbar>
       
-      <img src="../../assets/icon/Group 3@3x.png"  (click)="dismiss()">
+      <img src="../../assets/icon/Group 3@3x.png" width=14; (click)="dismiss()">
       
-  
       <div>
         <div style="text-align: center">
-          <span style="font-size:24px" >지진행동지침</span>
+          <span style="font-size:18px">지진행동지침</span>
           
         </div>
           
@@ -23,15 +21,9 @@
 
 </ion-header>
 
-
 <ion-content padding>
   <ion-slides pager (ionSlideDidChange)="slideChanged()">
     <ion-slide *ngFor="let slide of slides">
-      <ion-toolbar>
-        <ion-buttons end>
-          <button ion-button color="primary">Skip</button>
-        </ion-buttons>
-      </ion-toolbar>
       <img [src]="slide.image" class="slide-image"/>
     </ion-slide>
   </ion-slides>
