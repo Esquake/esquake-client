@@ -105,5 +105,5 @@ class Map {
 document.addEventListener("DOMContentLoaded", function () {
     let map = new Map('map');
     console.log(map.getRoadAddress());
-    console.log(map.getNearestShelter(3, 10));
+    console.log(map.getNearestShelter(3));
 });
