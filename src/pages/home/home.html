@@ -5,7 +5,7 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     
-    <ion-title (click)="showModal()">어떤 동네ADSAD</ion-title>
+    <ion-title (click)="showModal()">Esquake</ion-title>
   
     <ion-buttons end>
         <button ion-button icon-only (click)="updateLocate()"> 
@@ -15,6 +15,36 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  
+<ion-content padding class="map">
+지도가 들어갈 자리
+
+<ion-slides >
+  <ion-slide class="shelter-location">
+    <div id="shelter-info">
+      <div id="shelter-name">강릉고등학교</div>
+      <div id="shelter-distance">384m</div>
+    </div>
+    <div id="shelter-address">
+      강원도 강릉시 강릉대로587번길 68
+    </div>
+  </ion-slide>
+  <ion-slide class="shelter-location">
+    <div id="shelter-info">
+      <div id="shelter-name">한동대학교</div>
+      <div id="shelter-distance">1384m</div>
+    </div>
+    <div id="shelter-address">
+      경상북도 포항시 북구 한동로 558
+    </div>
+  </ion-slide>
+  <ion-slide class="shelter-location">
+    <div id="shelter-info">
+      <div id="shelter-name">템플...</div>
+      <div id="shelter-distance">0m</div>
+    </div>
+    <div id="shelter-address">
+      고기 주세요...
+    </div>
+  </ion-slide>
+</ion-slides>
 </ion-content>
