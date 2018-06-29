@@ -1,9 +1,18 @@
 <ion-header>
   <ion-navbar>
+    
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Esquake이에오</ion-title>
+    
+    <ion-title (click)="showModal()">어떤 동네ADSAD</ion-title>
+    
+    
+    <ion-buttons end>
+        <button ion-button icon-only (click)="updateLocate()"> 
+            <ion-icon name="locate"></ion-icon>
+        </button>
+      </ion-buttons>
   </ion-navbar>
 </ion-header>
 

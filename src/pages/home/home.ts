@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, ModalController } from 'ionic-angular';
+
 
 @Component({
   selector: 'page-home',
@@ -7,8 +8,24 @@ import { NavController } from 'ionic-angular';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController) {
-
+  constructor(public navCtrl: NavController, public modalCtrl : ModalController) {
+    this.initPage();
   }
 
+
+  initPage(){
+    console.log("init page");
+  }
+  showModal(){
+    let profileModal = this.modalCtrl.create("SearchShelterPage");
+    console.log("soicem");
+    profileModal.onDidDismiss(data => {
+      console.log("data");
+    });
+    profileModal.present();
+  }
+
+  updateLocate(){
+    console.log("updateLocate");
+  }
 }
