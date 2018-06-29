@@ -1,3 +1,31 @@
 page-search-shelter {
  font-family: "Noto Sans", "Noto Sans CJK KR";
+
+ .searchbar {
+   background-color: white !important ;
+ }
+ ion-item > .item > .item-block{
+   border-bottom : 0px white !important;
+ }
 }
+
+.serach-shelter-list {
+  font-size:12px ;
+  display:flex ;
+  .search-list-icon {
+    width: 15% ;
+  }
+  .search-list-title {
+    width: 70% ;
+    padding-top: 5px ;
+    padding-left: 4% ;
+    text-align: left ;
+    flex: auto ;
+  }
+  .search-list-x {
+    width: 15% ;
+    text-align: right ;
+    flex : auto ;
+  }
+}
+

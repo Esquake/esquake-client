@@ -8,19 +8,22 @@
 
   <ion-navbar>
     <img src="../../assets/icon/Group 3@3x.png" width=20 height=20 (click)="dismiss()">    
-        
   </ion-navbar>
 
 </ion-header>
 <ion-content padding>
     <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
     <ion-item *ngFor="let data of datas" (click)="setLocation(data)">
-        <span>
-            
-          <img src="../../assets/icon/icMarker.png" width="12" height="16.8">
-        </span>
-        <span>{{data.title}}</span>
-
-        <img src="../../assets/icon/icCancel.png" width=20 height=20 (click)="deleteItem()" style="float:right">
+      <div class="serach-shelter-list">
+        <div>
+          <img src="../../assets/icon/icMarker.png" width="14" height="24">
+        </div>
+        <div class="search-list-title">
+          {{data.title}}
+        </div>
+        <div class="search-list-x">
+            <img src="../../assets/icon/icCancel.png" width=20 height=20 (click)="deleteItem()" style="float:right">
+        </div>
+      </div>
       </ion-item>
 </ion-content>
