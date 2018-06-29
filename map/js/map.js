@@ -62,12 +62,14 @@ class Map {
         return (rad * 180.0 / Math.PI);
     }
 
-    getNearestShelter(max, length) {
-        var shelter = [];
+    getNearShelter(key) {
+        // TODO : json에서 해당하는 범위에 속하는 대피소 얻는 기능 추가해야함
+
+        var rNearShelter = [];
 
         // 좌표 랜덤으로 생성
-        for (let i = 0; i < length; i++) {
-            shelter.push(
+        for (let i = 0; i < key; i++) {
+            rNearShelter.push(
                 {
                     i: i,
                     lat: this.getRandomInRange(37.3, 37.9, 2),
@@ -75,6 +77,14 @@ class Map {
                 }
             )
         }
+
+        return rNearShelter;
+    }
+
+    getNearestShelter(max) {
+
+        // TODO : key는 current의 도로명 주소 split해서 넣어야함
+        var shelter = this.getNearShelter(10);
 
         // 거리 계산
         for (let i = 0; i < shelter.length; i++) {
@@ -94,6 +104,6 @@ class Map {
 
 document.addEventListener("DOMContentLoaded", function () {
     let map = new Map('map');
-    map.getRoadAddress();
+    console.log(map.getRoadAddress());
     console.log(map.getNearestShelter(3, 10));
 });
