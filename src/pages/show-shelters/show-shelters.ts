@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 
 /**
  * Generated class for the ShowSheltersPage page.
@@ -14,9 +14,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'show-shelters.html',
 })
 export class ShowSheltersPage {
-
-  
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl : ViewController) {
     console.log("modal page");
   }
 
@@ -46,4 +44,7 @@ export class ShowSheltersPage {
       id: "004"
     },
   ];
+  dismiss(){
+    this.viewCtrl.dismiss();
+  }
 }

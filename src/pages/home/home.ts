@@ -25,6 +25,14 @@ export class HomePage {
     profileModal.present();
   }
 
+  showCardModal(){
+    let profileModal = this.modalCtrl.create("ShowSheltersPage");
+    profileModal.onDidDismiss(data =>{
+      console.log("data");
+    });
+    profileModal.present();
+  }
+
   updateLocate(){
     console.log("updateLocate");
   }

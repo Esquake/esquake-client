@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 
 /**
  * Generated class for the SearchShelterPage page.
@@ -15,13 +15,13 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class SearchShelterPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl : ViewController) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SearchShelterPage');
   }
-
+  
   private datas = [
     {
       title: "사용자 관리",
@@ -44,4 +44,11 @@ export class SearchShelterPage {
       id: "004"
     },
   ];
+  dismiss(){
+    this.viewCtrl.dismiss();  
+  }
+
+  deleteItem(){
+    // delete Item
+  }
 }
