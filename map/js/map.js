@@ -84,12 +84,32 @@ class Map {
 
     generateMarker() {
 
+        // 대피소 마커 생성
+        var position = null;
+        var bounds = new daum.maps.LatLngBounds();
+        for (let i = 0; i < this.shelter.length; i++) {
+            position = new daum.maps.LatLng(
+                parseFloat(this.shelter[i]["lat"]),
+                parseFloat(this.shelter[i]["lng"])
+            );
+
+            this.shelter[i]["marker"] = new daum.maps.Marker({
+                position: position
+            });
+
+            bounds.extend(position);
+            this.shelter[i]["marker"].setMap(this.map);
+
+            console.log(i, this.shelter[i], this.shelter[i]["lat"], this.shelter[i]["lng"]);
+        }
+        this.map.setBounds(bounds);
     }
 }
 
 
 document.addEventListener("DOMContentLoaded", function () {
     let map = new Map('map');
-    console.log(map.getRoadAddress());
-    console.log(map.getNearestShelter(3));
+    map.getRoadAddress();
+    map.getNearestShelter(3);
+    map.generateMarker();
 });
