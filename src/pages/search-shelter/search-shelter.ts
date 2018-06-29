@@ -21,7 +21,7 @@ export class SearchShelterPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad SearchShelterPage');
   }
-  
+
   title = "soicem";
 
   private datas = [
@@ -46,7 +46,6 @@ export class SearchShelterPage {
       id: 3
     },
   ];
-
   setLocation(data){
     console.log(data.id);
     this.title = this.datas[data.id].title;

@@ -52,9 +52,6 @@ export class ShowSheltersPage {
       id: "004"
     },
   ];
-
-
-
   dismiss(){
     this.viewCtrl.dismiss();
   }
