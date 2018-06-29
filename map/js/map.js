@@ -89,7 +89,7 @@ class Map {
         var shelterMarkerImage = new daum.maps.MarkerImage(
             "./../resource/shelterMarkerImage.png",
             new daum.maps.Size(25, 30),
-            {offset: new daum.maps.Point(27, 69)}
+            {offset: new daum.maps.Point(0, 0)}
         );
 
         for (let i = 0; i < this.shelter.length; i++) {
@@ -112,7 +112,12 @@ class Map {
         this.map.setBounds(bounds);
 
         this.current["marker"] = new daum.maps.Marker({
-            position: position
+            position: position,
+            image: new daum.maps.MarkerImage(
+                "./../resource/currentMarkerImage.png",
+                new daum.maps.Size(40, 40),
+                {offset: new daum.maps.Point(0, 0)}
+            )
         });
 
         this.current["marker"].setMap(this.map);
