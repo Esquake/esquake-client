@@ -156,6 +156,7 @@ export class HomePage {
 
       this.current["lat"] = resp.coords.latitude;
       this.current["lng"] = resp.coords.longitude;
+      this.title = this.current["lat"];
 
       console.log(resp.coords.latitude);
       console.log(resp.coords.longitude);
