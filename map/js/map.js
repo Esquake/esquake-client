@@ -83,8 +83,15 @@ class Map {
 
     generateMarker() {
         // 대피소 마커 생성
-        var position = null;
         var bounds = new daum.maps.LatLngBounds();
+
+        var position = null;
+        var shelterMarkerImage = new daum.maps.MarkerImage(
+            "../resource/shelterMarkerImage.png",
+            new daum.maps.Size(64, 69),
+            {offset: new daum.maps.Point(27, 69)}
+        );
+
         for (let i = 0; i < this.shelter.length; i++) {
             position = new daum.maps.LatLng(
                 parseFloat(this.shelter[i]["lat"]),
