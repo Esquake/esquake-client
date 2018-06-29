@@ -7,14 +7,11 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>searchShelter</ion-title>
+    <img src="../../assets/icon/Group 3@3x.png" width=20 height=20 (click)="dismiss()">    
+        
   </ion-navbar>
 
 </ion-header>
-
-
-
-    
     <ion-content padding>
         <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
         <ion-item *ngFor="let data of datas">
@@ -23,7 +20,7 @@
               <img src="../../assets/icon/icMarker.png" width="12" height="16.8">
             </span>
             <span>{{data.title}}</span>
-            <div>{{data.subTitle}}</div>
-            <button ion-button round>Primary Round</button>
+
+            <img src="../../assets/icon/icCancel.png" width=20 height=20 (click)="deleteItem()" style="float:right">
           </ion-item>
     </ion-content>
