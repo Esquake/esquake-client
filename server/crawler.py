@@ -13,7 +13,7 @@ class Crawler:
     def __init__(self, url, param):
         self.url = url
         self.param = param
-        self.interval = 1
+        self.interval = 3
 
         # Use a service account
         cred = credentials.Certificate('./serviceAccountKey.json')
