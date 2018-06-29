@@ -62,32 +62,13 @@ class Map {
         return (rad * 180.0 / Math.PI);
     }
 
-    getNearShelter(key) {
-        // json에서 해당하는 범위에 속하는 대피소 
-        var shelter = JSON.parse(shelter);
-        var shelter_lat = shelter[6].lat; 
-        var shelter_lng = shelter[7].lng;
-
-        var rNearShelter = shelter.records;
-
-        // 좌표 랜덤으로 생성
-        for (let i = 0; i < key; i++) {
-            rNearShelter.push(
-                {
-                    i: i,
-                    lat: this.getRandomInRange(37.3, 37.9, 2),
-                    lng: this.getRandomInRange(126.6, 127.4, 2)
-                }
-            )
-        }
-
-        return rNearShelter;
+    getNearShelter() {
+        return JSON.parse(data)["records"];
     }
 
     getNearestShelter(max) {
 
-        // TODO : key는 current의 도로명 주소 split해서 넣어야함
-        var shelter = this.getNearShelter(10);
+        var shelter = this.getNearShelter();
 
         // 거리 계산
         for (let i = 0; i < shelter.length; i++) {
