@@ -5,33 +5,18 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
-  
   <ion-navbar>
-      
-      <img src="../../assets/icon/Group 3@3x.png"  (click)="dismiss()">
-      
-  
-      <div>
-        <div style="text-align: center">
-          <span style="font-size:24px" >지진행동지침</span>
-          
-        </div>
-          
+      <div style="padding:10px;">
+        <img src="../../assets/icon/Group 3@3x.png" width=14; style="display:inline-block;"(click)="dismiss()">
+        <span style="font-size:18px; font-weight:800; width:80%; text-align::center; margin-left:33%">지진행동지침</span>
       </div>
   </ion-navbar>
 
 </ion-header>
 
-
-<ion-content padding>
+<ion-content padding class="no-scroll">
   <ion-slides pager (ionSlideDidChange)="slideChanged()">
     <ion-slide *ngFor="let slide of slides">
-      <ion-toolbar>
-        <ion-buttons end>
-          <button ion-button color="primary">Skip</button>
-        </ion-buttons>
-      </ion-toolbar>
       <img [src]="slide.image" class="slide-image"/>
     </ion-slide>
   </ion-slides>
