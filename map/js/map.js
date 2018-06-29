@@ -1,10 +1,11 @@
 class Map {
     constructor(elementId) {
-
         this.current = {
             lat: 37.6,
             lng: 127
         };
+
+        this.shelter = [];
 
         this.map = new daum.maps.Map(
             document.getElementById(elementId),
@@ -24,10 +25,6 @@ class Map {
 
     searchDetailAddrFromCoords(coords, callback) {
         this.geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
-    }
-
-    getRandomInRange(from, to, fixed) {
-        return (Math.random() * (to - from) + from).toFixed(fixed) * 1;
     }
 
     getRoadAddress() {
@@ -80,14 +77,46 @@ class Map {
             return a.dist - b.dist;
         }).slice(0, max);
 
+        this.shelter = rShelter;
         return rShelter;
+    }
 
+    generateMarker() {
+        // 대피소 마커 생성
+        var position = null;
+        var bounds = new daum.maps.LatLngBounds();
+        for (let i = 0; i < this.shelter.length; i++) {
+            position = new daum.maps.LatLng(
+                parseFloat(this.shelter[i]["lat"]),
+                parseFloat(this.shelter[i]["lng"])
+            );
+            bounds.extend(position);
+
+            this.shelter[i]["marker"] = new daum.maps.Marker({
+                position: position
+            });
+            this.shelter[i]["marker"].setMap(this.map);
+
+            console.log(i, this.shelter[i], this.shelter[i]["lat"], this.shelter[i]["lng"]);
+        }
+
+        // 현재 위치 마커 생성
+        position = new daum.maps.LatLng(this.current["lat"], this.current["lng"]);
+        bounds.extend(position);
+        this.map.setBounds(bounds);
+
+        this.current["marker"] = new daum.maps.Marker({
+            position: position
+        });
+
+        this.current["marker"].setMap(this.map);
     }
 }
 
 
 document.addEventListener("DOMContentLoaded", function () {
     let map = new Map('map');
-    console.log(map.getRoadAddress());
-    console.log(map.getNearestShelter(3));
+    map.getRoadAddress();
+    map.getNearestShelter(3);
+    map.generateMarker();
 });
