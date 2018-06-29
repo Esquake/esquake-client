@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, ModalController } from 'ionic-angular';
-import { HttpClient } from '@angular/common/http';
+import { Geolocation } from '@ionic-native/geolocation';
+
 import {
   KakaoMapsProvider,
   LatLng,
@@ -37,12 +38,14 @@ export class HomePage {
   
   constructor(public navCtrl: NavController, public modalCtrl : ModalController,
     public _kakaoMapsProvider: KakaoMapsProvider,
+    public geoLocate : Geolocation,
     
   ) {
     this.initPage();
     this.initializeMap();
     //this.maps = window['daum'];
 
+    
     this.current = {
       lat: 37.6,
       lng: 127
@@ -102,21 +105,23 @@ export class HomePage {
   private current:any;
 
   private shelter:any;
+
+      // resp.coords.longitude lng
   
 
   getLocalData() {
-    /*this.httpClient.get('../assets/data/cards.json').map(res => res.json()).subscribe(data => 
-    {
-      console.log(data);
-    });*/  
+    //this.file.readAsText(this.file.applicationDirectory + "www/assets", "data.json").then(...)
+    //https://ionicframework.com/docs/native/file/
   }
   initPage(){
     console.log("init page");
     this.title = "geo module";
+
+    
   }
   showModal(){
     let profileModal = this.modalCtrl.create("SearchShelterPage");
-    console.log("soicem");
+    
     profileModal.onDidDismiss(data => {
       console.log(data);
       this.title = data;
@@ -133,7 +138,37 @@ export class HomePage {
   }
 
   updateLocate(){
-    console.log("updateLocate");
+    console.log("read me");
+    this.geoLocate.getCurrentPosition().then((resp) => {
+      // resp.coords.latitude lat 
+      // resp.coords.longitude lng
+
+      this.current["lat"] = resp.coords.latitude;
+      this.current["lng"] = resp.coords.longitude;
+
+      console.log(resp.coords.latitude);
+      console.log(resp.coords.longitude);
+      this.updateMap();
+     }).catch((error) => {
+       console.log('Error getting location', error);
+     });
+     let watch = this.geoLocate.watchPosition();
+     watch.subscribe((data) => {
+      // data can be a set of coordinates, or an error (if an error occurred).
+      // data.coords.latitude
+      // data.coords.longitude
+      console.log(data);
+     });
+  }
+
+  updateMap() {
+    for (let index = 0; index < this.shelter.length; index++) {
+      this.shelter[index]["marker"].setMap(null);
+    }
+    this.shelter = [];
+    this.current["marker"].setMap(null);
+    this.getNearestShelter(3);
+    this.generateMarker();
   }
   
   initializeMap(){
@@ -266,7 +301,7 @@ export class HomePage {
     var local_shelter = this.getNearShelter(20);
     for (let index = 0; index < local_shelter.length; index++) {
       local_shelter[index]["dist"] = this.getDistance(this.current, local_shelter[index]);
-      console.log(local_shelter[index]);
+      //console.log(local_shelter[index]);
     }
 
     var rShelter = local_shelter.sort(function (a, b) {
@@ -360,6 +395,4 @@ export class HomePage {
     this.mapConfig = option;
     this.flagg = !this.flagg;
   }
-  
-
 }
