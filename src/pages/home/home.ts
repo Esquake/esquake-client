@@ -35,7 +35,7 @@ import {
 
 export class HomePage {
   position;
-  mapConfig = { width: '100%', height: '50%' };
+  mapConfig = { width: '100%', height: '100%' };
   flagg = true;
   marker;
   KaKaoJavascriptAPIKey = '172283aea22a2859764d0f5c96a12445';
