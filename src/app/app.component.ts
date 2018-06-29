@@ -16,7 +16,7 @@ export class MyApp {
 
   rootPage: any = HomePage;
 
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{title: string, component: any, src: string}>;
 
   constructor(public platform: Platform, public statusBar: StatusBar, 
     public splashScreen: SplashScreen,
@@ -26,8 +26,8 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'EqHistory', component: HomePage },
-      { title: 'EqBehavior', component: ListPage }
+      { title: '지진기록', component: HomePage, src:"/../assets/icon/ic_eq_history.png"},
+      { title: '지진행동지침', component: ListPage, src:"/../assets/icon/ic_survival-book.png"}
     ];
 
   }
