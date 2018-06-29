@@ -1,10 +1,8 @@
-# ESQUAKE: 지진에서 탈출하라!!
-
 <div align="middle">
   <img src="https://github.com/esquake/esquake/blob/master/resources/readme.png" height="250px" >
 </div>
-<br/>
 
+# ESQUAKE: 지진에서 탈출하라!!
 ## Introduction
 #### 🏃‍♀️ Escape+Earthquake : 지진에서 탈출하라! 🏃‍♂️
 
