@@ -4,6 +4,9 @@ import xmltodict
 import json
 import time
 import datetime
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import firestore
 
 
 class Crawler:
@@ -11,6 +14,12 @@ class Crawler:
         self.url = url
         self.param = param
         self.interval = 1
+
+        # Use a service account
+        cred = credentials.Certificate('./serviceAccountKey.json')
+        self.app = firebase_admin.initialize_app(cred)
+        self.db = firestore.client()
+        self.earthquake_ref = self.db.collection(u'earthquake')
         pass
 
     def setTime(self):
@@ -18,6 +27,16 @@ class Crawler:
         self.param["fromTmFc"] = (now - datetime.timedelta(days=1)).strftime("%Y%m%d")
         self.param["toTmFc"] = now.strftime("%Y%m%d")
         pass
+
+    def find(self, key):
+        docs = self.earthquake_ref.where('tmEqk', '==', key).get()
+        rFind = False
+
+        for doc in docs:
+            rFind = True
+            break
+
+        return rFind
 
     def run(self):
         while True:
@@ -34,7 +53,14 @@ class Crawler:
                 pass
 
             for item in response["response"]["body"]["items"]["item"]:
-                print(item)
+                if not self.find(item['tmEqk']):
+                    self.earthquake_ref.add(item)
+                    print("Data insert success.")
+                    print(item)
+                    pass
+                else:
+                    print("Data already exists.")
+                    pass
                 pass
             pass
         pass
