@@ -83,8 +83,15 @@ class Map {
 
     generateMarker() {
         // 대피소 마커 생성
-        var position = null;
         var bounds = new daum.maps.LatLngBounds();
+
+        var position = null;
+        var shelterMarkerImage = new daum.maps.MarkerImage(
+            "./../resource/shelterMarkerImage.png",
+            new daum.maps.Size(25, 30),
+            {offset: new daum.maps.Point(0, 0)}
+        );
+
         for (let i = 0; i < this.shelter.length; i++) {
             position = new daum.maps.LatLng(
                 parseFloat(this.shelter[i]["lat"]),
@@ -93,11 +100,10 @@ class Map {
             bounds.extend(position);
 
             this.shelter[i]["marker"] = new daum.maps.Marker({
-                position: position
+                position: position,
+                image: shelterMarkerImage
             });
             this.shelter[i]["marker"].setMap(this.map);
-
-            console.log(i, this.shelter[i], this.shelter[i]["lat"], this.shelter[i]["lng"]);
         }
 
         // 현재 위치 마커 생성
@@ -106,7 +112,12 @@ class Map {
         this.map.setBounds(bounds);
 
         this.current["marker"] = new daum.maps.Marker({
-            position: position
+            position: position,
+            image: new daum.maps.MarkerImage(
+                "./../resource/currentMarkerImage.png",
+                new daum.maps.Size(40, 40),
+                {offset: new daum.maps.Point(0, 0)}
+            )
         });
 
         this.current["marker"].setMap(this.map);
