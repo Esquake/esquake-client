@@ -26,10 +26,6 @@ class Map {
         this.geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
     }
 
-    getRandomInRange(from, to, fixed) {
-        return (Math.random() * (to - from) + from).toFixed(fixed) * 1;
-    }
-
     getRoadAddress() {
 
         // TODO : GPS에서 데이터 가져오는 기능 추가
