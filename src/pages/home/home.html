@@ -1,20 +1,30 @@
 <ion-header>
-  
+
   <script type="text/javascript" src="./js/shelter.json"></script>
   <ion-navbar>
-    
+
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
 
-    <div>
-      <div style="text-align: center">
-        <span (click)="showModal()" style="font-size:24px" >location : {{title}}</span>
-        <span style="display:inline-block"><img src = "../../assets/icon/bottomBar.png"  width="20" height="20" style="display:block" (click)="showModal()"></span>
+    <!-- <div style="float:left; margin-left:20%; margin-right:4px; margin-top:4px; width:60%; text-align:center;">
+        <span (click)="showModal()" style="font-size:14px; line-height:7px;">location : {{title}}</span>
       </div>
-        
+
+    <img src="../../assets/icon/bottomBar.png" width="20" height="20" style="display:block; margin-top:4px; margin-right:48px;" (click)="showModal()">
+    <div style="float:right;">
+        <img src="../../assets/icon/icGPS.png" width="20" height="20" style="margin-right:24px;" (click)="updateLocate()">
+    </div> -->
+
+    <div style="display:flex; justify-content:space-between; align-items: center;">
+      <div style="display:flex; width:100%;  justify-content:center;">
+        <span (click)="showModal()" style="font-size:14px;">location : {{title}}</span>
+        <img src="../../assets/icon/bottomBar.png" width="20" height="20"  style="margin-left:4px;"(click)="showModal()">
+      </div>
+      <div style="align-self: flex-end;">
+        <img src="../../assets/icon/icGPS.png" width="20" height="20" style="margin-right:12px;" (click)="updateLocate()">
+      </div>
     </div>
-    <img src="../../assets/icon/icGPS.png" width="40" height="40" style="z-index: 4;" (click)="updateLocate()">
   </ion-navbar>
 </ion-header>
 
@@ -22,4 +32,3 @@
   <kakao-maps [mapConfig]="mapConfig" style="max-width:100% !important;"></kakao-maps>
 </ion-content>
 <img src="../../assets/icon/ic_GPS2.png" width="40" height="40" (click)="showCardModal()">
-
