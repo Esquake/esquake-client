@@ -17,9 +17,8 @@ class Map {
         this.geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
     }
 
-    // TODO : 랜덤으로 좌표 생성하는 기능 추가
-    getRandomLocaton() {
-
+    getRandomInRange(from, to, fixed) {
+        return (Math.random() * (to - from) + from).toFixed(fixed) * 1;
     }
 
     getRoadAddress() {
