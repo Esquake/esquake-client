@@ -14,6 +14,11 @@ ESQUAKE는 지진알람과 동시에 가장 가까운 대피소를 안내합니�
 
 ## Usage Example
 
+```
+pip install xmltodict
+pip install firebase-admin
+```
+
 ## License
 Copyright (C) 2018-present,  OpenHackEsquake
 
