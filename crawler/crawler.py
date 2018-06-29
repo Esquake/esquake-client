@@ -1,12 +1,13 @@
 import urllib.parse, urllib.request
-import re
+import xmltodict, json
+import time
 
 
 class Crawler:
     def __init__(self, url, param):
         self.url = url
         self.param = param
-        self.interval = 10
+        self.interval = 1
         pass
 
     def setTime(self):
@@ -14,18 +15,19 @@ class Crawler:
         self.param["toTmFc"] = "20180629"
 
     def run(self):
-        self.setTime()
-        target = self.url + "?" + urllib.parse.urlencode(self.param)
+        while True:
+            time.sleep(self.interval)
 
-        print("TARGET : " + target)
+            self.setTime()
+            target = self.url + "?" + urllib.parse.urlencode(self.param)
 
-        req = urllib.request.urlopen(target)
-        r = req.read()
-        req.close()
+            result = urllib.request.urlopen(target).read().decode('utf-8')
+            response = json.loads(json.dumps(xmltodict.parse(result)))
 
-        result = r.decode('utf-8', 'ignore').split('\n')
-
-        print(result)
+            for item in response["response"]["body"]["items"]["item"]:
+                print(item)
+                pass
+            pass
         pass
 
     pass
