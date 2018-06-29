@@ -36,10 +36,10 @@ import {
 
 export class HomePage {
   position;
-  mapConfig = { width: '100%', height: '50%' };
+  mapConfig = { width: '100%', height: '100%' };
   flagg = true;
   marker;
-  KaKaoJavascriptAPIKey = '172283aea22a2859764d0f5c96a12445';
+  KaKaoJavascriptAPIKey = 'fb4502f702724dbd21ef0a97b1a22456';
   
   constructor(public navCtrl: NavController, public modalCtrl : ModalController,
     public _kakaoMapsProvider: KakaoMapsProvider,
@@ -50,6 +50,12 @@ export class HomePage {
   ) {
     this.initPage();
     this.initializeMap();
+
+    this.datas = [
+      {
+        b:1
+      }
+    ]
 
     console.log(products);
     //this.maps = window['daum'];
@@ -108,20 +114,20 @@ export class HomePage {
         // console.log('catch ', e);
       });
   }
-  private daum:any;
+  //private daum:any;
   private maps:any;
   private title :any;
   private current:any;
   private geocoder:any;
-
   private shelter:any;
-
-      // resp.coords.longitude lng
+  private datas : any;
   
-  private _productURL = 'api/products/products.json';    
+  // resp.coords.longitude lng
+  
+  private _productURL = 'api/products/products.json';
 
   getLocalData() {
-
+    
     
     //console.log(this.file.dataDirectory);
     //this.file.readAsText(this.file.applicationDirectory + "www/assets", "data.json").then(...);
@@ -143,8 +149,8 @@ export class HomePage {
     profileModal.present();
   }
 
-  showCardModal(){
-    let profileModal = this.modalCtrl.create("ShowSheltersPage");
+  showCardModal(data){
+    let profileModal = this.modalCtrl.create("ShowSheltersPage", this.shelter);
     profileModal.onDidDismiss(data =>{
       console.log("data");
     });
@@ -183,7 +189,7 @@ export class HomePage {
     }
     this.shelter = [];
     this.current["marker"].setMap(null);
-    this.getNearestShelter(3);
+    this.getNearestShelter(5);
     this.generateMarker();
   }
   
@@ -232,17 +238,21 @@ export class HomePage {
     }).slice(0, max);
 
     this.shelter = rShelter;
+
     return rShelter;
   }
 
   searchDetailAddrFromCoords(coords, callback) {
+    // callback = callback.apply(this);
     this.geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
   }
 
   getRoadAddress() {
     this.searchDetailAddrFromCoords(new LatLng(this.current.lat, this.current.lng), function (result, status) {
         if (status === Status.OK) {
+          // window.title = result[0]["address"]["address_name"]
           console.log(result[0]["address"]["address_name"]);
+          // this.title = "1";
         }
     });
 }
@@ -262,6 +272,7 @@ export class HomePage {
     );
 
     for (let i = 0; i < this.shelter.length; i++) {
+      console.log(this.shelter[i]);
       position = new LatLng(
       parseFloat(this.shelter[i]["lat"]),
       parseFloat(this.shelter[i]["lng"])

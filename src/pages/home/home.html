@@ -3,7 +3,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-
+    
     <div style="display:flex; justify-content:space-between; align-items: center;">
       <div style="display:flex; width:100%;  justify-content:center;">
         <span (click)="showModal()" style="font-size:14px;">{{title}}</span>
@@ -17,6 +17,22 @@
 </ion-header>
 
 <ion-content class="no-scroll">
-  <kakao-maps [mapConfig]="mapConfig" style="max-width:100% !important;"></kakao-maps>
+  <kakao-maps [mapConfig]="mapConfig"></kakao-maps>
+  <div>
+
+    
+  </div>
+  <ion-slides style="z-index: 10;">
+    <ion-slide *ngFor="let data of shelter" (click)="showCardModal(data)" class="shelter-location">
+      <div id="shelter-info">
+        <div id="shelter-name">{{data.name}}</div>
+        <div id="shelter-distance">{{data.dist}}</div>
+      </div>
+      <div id="shelter-address">{{data.road_address}}</div>
+    </ion-slide>
+    
+  </ion-slides>
 </ion-content>
 <img src="../../assets/icon/ic_GPS2.png" width="40" height="40" (click)="showCardModal()">
+
+
