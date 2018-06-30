@@ -227,46 +227,14 @@ export class HomePage {
   }
 
   setBoundsForMe(index) {
-    var centerLatArray = [];
-    var centerLngArray = [];
+    var lat = this.current.lat + this.shelter[index].lat;
+    var lng = this.current.lng + this.shelter[index].lng;
     
-    if (isNaN(Number(this.current.lat))) {
+    lat /= 2;
+    lng /= 2;
 
-    } else {
-      centerLatArray.push(Number(this.current.lat))
-    }
-
-    if (isNaN(Number(this.current.lng))) {
-
-    } else {
-      centerLngArray.push(Number(this.current.lng))
-    }
-
-    if (isNaN(Number(this.shelter[index].lat))) {
-
-    } else {
-      centerLatArray.push(Number(this.shelter[index].lat))
-    }
-
-    if (isNaN(Number(this.shelter[index].lng))) {
-
-    } else {
-      centerLngArray.push(Number(this.shelter[index].lng))
-    }
-    
-    var centerLatSum = centerLatArray.reduce(function(a, b) { return a + b; });
-   var centerLngSum = centerLngArray.reduce(function(a, b) { return a + b; });
-
-   var centerLat = centerLatSum / (2);
-   var centerLng = centerLngSum / (2);
-   
-   console.log(centerLat);
-   console.log(centerLng);
-
-   this._kakaoMapsProvider.getMapInstance().setCenter(new LatLng(centerLat, centerLng));
-   this._kakaoMapsProvider.getMapInstance().setLevel(8);
-
-    console.log(this.shelter[index]);
+   this._kakaoMapsProvider.getMapInstance().setCenter(new LatLng(lat, lng));
+   this._kakaoMapsProvider.getMapInstance().setLevel(9);
   }
 
   getNearestShelter(max) {
