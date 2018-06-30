@@ -4,8 +4,6 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { File } from '@ionic-native/file';
 
 import * as products from "../../assets/shelter.json";
-
-
 import {
   KakaoMapsProvider,
   LatLng,
@@ -50,6 +48,16 @@ export class HomePage {
   ) {
     this.initPage();
     this.initializeMap();
+
+
+    var notificationOpenedCallback = function(jsonData) {
+      console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+    };
+
+    window["plugins"].OneSignal
+      .startInit("", "AIzaSyCh377VQZpitPnjnSDPurbIm-6wFbGjmIQ")
+      .handleNotificationOpened(notificationOpenedCallback)
+      .endInit();
 
     this.datas = [
       {
@@ -420,4 +428,26 @@ console.log(centerLatArray);
     this.mapConfig = option;
     this.flagg = !this.flagg;
   }
+
+  private playerIds : any = [];
+
+  sendPushMessage(playerId, message) {
+    
+    window["plugins"].OneSignal.getIds((ids) => {
+      var notificationObj = {
+        contents: { en: message },
+        include_player_ids: ["021b38dc-2614-4ae9-a4c4-8008410f8011"],
+      };
+
+
+      // push notification
+      window["plugins"].OneSignal.postNotification(notificationObj,
+        (successResponse) => {
+          console.log("push success");
+        }          
+      );
+    });
+  }
+
+  
 }

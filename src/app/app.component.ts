@@ -2,10 +2,9 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform, ModalController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
+import * as firebase from 'firebase';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
-
 
 
 @Component({
@@ -44,7 +43,7 @@ export class MyApp {
       };
   
       window["plugins"].OneSignal
-        .startInit("0d931a3c-8465-40dd-abaf-d747c18b4465", "esquake-d87b2")
+        .startInit("", "AIzaSyCh377VQZpitPnjnSDPurbIm-6wFbGjmIQ")
         .handleNotificationOpened(notificationOpenedCallback)
         .endInit();
     });
