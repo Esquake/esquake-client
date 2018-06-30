@@ -58,7 +58,7 @@ export class ShowSheltersPage {
     this.viewCtrl.dismiss();
   }
 
-  pathFind(){
+  findPath(){
     console.log("path find");
   }
 }

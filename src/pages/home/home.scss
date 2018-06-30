@@ -1,24 +1,37 @@
 page-home {
  font-family: "Noto Sans", "Noto Sans CJK KR";
+ ion-slides {
+   height: 96px;
+   padding: 0;
+   margin: 0;
+ }
 }
 
-ion-sliders {
-    height: 96px !important;
-}
+// ion-sliders {
+//     height: 96px !important;
+// }
 
 .scroll-content {
     padding:0 !important;
   }
+  .shelter-location-slide .slides {
+    // height : 30% !important;
+  }
+  .shelter-location-slide{
+    position: fixed;
+    bottom:5%;
+    z-index: 3;
+  }
   .shelter-location {
-    // position:absolute;
+    
     box-shadow: 0 5px 5px rgba(0,0,0,0.05);
-    top: 80%;
-    z-index: 1;
+    // top: 80%;
+    // z-index: 1;
   
     height: 96px !important;
     width:100%;
-    padding-right: 10%;
-    padding-left: 10%;
+    padding-right: 5%;
+    padding-left: 5%;
     .slide-zoom {
       height: 100% ;
       background-color : white ;

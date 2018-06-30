@@ -157,7 +157,7 @@ export class HomePage {
     profileModal.present();
   }
 
-  updateLocate(){
+  updateLocation(){
     console.log("read me");
     this.geoLocate.getCurrentPosition().then((resp) => {
       // resp.coords.latitude lat 
@@ -226,6 +226,49 @@ export class HomePage {
       return (rad * 180.0 / Math.PI);
   }
 
+  setBoundsForMe(index) {
+    var centerLatArray = [];
+    var centerLngArray = [];
+    
+    if (isNaN(Number(this.current.lat))) {
+
+    } else {
+      centerLatArray.push(Number(this.current.lat))
+    }
+
+    if (isNaN(Number(this.current.lng))) {
+
+    } else {
+      centerLngArray.push(Number(this.current.lng))
+    }
+
+    if (isNaN(Number(this.shelter[index].lat))) {
+
+    } else {
+      centerLatArray.push(Number(this.shelter[index].lat))
+    }
+
+    if (isNaN(Number(this.shelter[index].lng))) {
+
+    } else {
+      centerLngArray.push(Number(this.shelter[index].lng))
+    }
+    
+    var centerLatSum = centerLatArray.reduce(function(a, b) { return a + b; });
+   var centerLngSum = centerLngArray.reduce(function(a, b) { return a + b; });
+
+   var centerLat = centerLatSum / (2);
+   var centerLng = centerLngSum / (2);
+   
+   console.log(centerLat);
+   console.log(centerLng);
+
+   this._kakaoMapsProvider.getMapInstance().setCenter(new LatLng(centerLat, centerLng));
+   this._kakaoMapsProvider.getMapInstance().setLevel(8);
+
+    console.log(this.shelter[index]);
+  }
+
   getNearestShelter(max) {
     var local_shelter = this.getNearShelter(20);
     for (let index = 0; index < local_shelter.length; index++) {
@@ -259,10 +302,7 @@ export class HomePage {
 
   generateMarker() {
     // 대피소 마커 생성
-    var bounds = new LatLngBounds(
-      new LatLng(this.current["lat"], this.current["lng"]),
-      new LatLng(this.current["lat"], this.current["lng"])
-    );
+    //this.rectangle();
 
     var position = null;
     var shelterMarkerImage = new MarkerImage(
@@ -271,13 +311,27 @@ export class HomePage {
       {offset: new Point(0, 0)}
     );
 
+    var centerLatArray = [];
+    var centerLngArray = [];
+
     for (let i = 0; i < this.shelter.length; i++) {
       console.log(this.shelter[i]);
       position = new LatLng(
       parseFloat(this.shelter[i]["lat"]),
       parseFloat(this.shelter[i]["lng"])
         );
-        bounds.extend(position);
+
+        if (isNaN(Number(position.jb))) {
+
+        } else {
+          centerLatArray.push(Number(position.jb))
+        }
+
+        if (isNaN(Number(position.ib))) {
+
+        } else {
+          centerLngArray.push(Number(position.ib))
+        }
         
         this.shelter[i]["marker"] = new Marker({
             position: position,
@@ -288,7 +342,32 @@ export class HomePage {
 
     // 현재 위치 마커 생성
     position = new LatLng(this.current["lat"], this.current["lng"]);
-    bounds.extend(position);
+
+   
+    if (isNaN(Number(position.jb))) {
+
+    } else {
+      centerLatArray.push(Number(position.jb))
+    }
+
+    if (isNaN(Number(position.ib))) {
+
+    } else {
+      centerLngArray.push(Number(position.ib))
+    }
+    
+console.log(centerLatArray);
+    var centerLatSum = centerLatArray.reduce(function(a, b) { return a + b; });
+   var centerLngSum = centerLngArray.reduce(function(a, b) { return a + b; });
+
+   var centerLat = centerLatSum / (this.shelter.length + 1);
+   var centerLng = centerLngSum / (this.shelter.length + 1);
+   
+   console.log(centerLat);
+   console.log(centerLng);
+
+   this._kakaoMapsProvider.getMapInstance().setCenter(new LatLng(centerLat, centerLng));
+   this._kakaoMapsProvider.getMapInstance().setLevel(7);
 
     this.current["marker"] = new Marker({
         position: position,
