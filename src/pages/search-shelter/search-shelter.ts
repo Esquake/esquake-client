@@ -14,8 +14,10 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
   templateUrl: 'search-shelter.html',
 })
 export class SearchShelterPage {
+
   title: any ;
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl : ViewController) {
+
   }
 
   ionViewDidLoad() {

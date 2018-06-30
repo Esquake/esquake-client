@@ -1,3 +1,69 @@
 page-home {
  font-family: "Noto Sans", "Noto Sans CJK KR";
+ ion-slides {
+   height: 96px;
+   padding: 0;
+   margin: 0;
+ }
 }
+
+// ion-sliders {
+//     height: 96px !important;
+// }
+
+.scroll-content {
+    padding:0 !important;
+  }
+  .shelter-location-slide .slides {
+    // height : 30% !important;
+  }
+  .shelter-location-slide{
+    position: fixed;
+    bottom:5%;
+    z-index: 3;
+  }
+  .shelter-location {
+    
+    box-shadow: 0 5px 5px rgba(0,0,0,0.05);
+    // top: 80%;
+    // z-index: 1;
+  
+    height: 96px !important;
+    width:100%;
+    padding-right: 5%;
+    padding-left: 5%;
+    .slide-zoom {
+      height: 100% ;
+      background-color : white ;
+      padding: 14px ;
+    }
+    #shelter-info {
+      display: flex;
+      div {
+        width:50% ;
+      }
+      #shelter-name {
+        font-size: 18px;
+        font-weight: bold ;
+        text-align: left ;
+      }
+      #shelter-distance {
+        font-size: 16px;
+        color : $main-color ;
+        text-align: right ;
+      }
+    }
+    #shelter-address {
+      margin-top: 10px;
+      font-size: 12px;
+      text-align: left ;
+    }
+  
+  }
+  .map {
+    background-color: #d8d3d3;
+  }
+
+  #maps {
+    position:relative;
+  }

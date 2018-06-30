@@ -15,13 +15,15 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
 })
 export class ShowSheltersPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl : ViewController) {
-    console.log("modal page");
+    navParams.get("data");
+    this.shelter = navParams.data;
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ShowSheltersPage');
   }
   
+  private shelter : any;
   private datas = [
     {
       schoolName: "사용자 관리",
@@ -56,7 +58,7 @@ export class ShowSheltersPage {
     this.viewCtrl.dismiss();
   }
 
-  pathFind(){
+  findPath(){
     console.log("path find");
   }
 }

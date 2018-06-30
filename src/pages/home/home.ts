@@ -14,6 +14,7 @@ import {
   MapTypeControl,
   ControlPosition,
   OverlayMapTypeId,
+  Geocoder,
   KakaoEvents,
   Marker,
   OverlayType,
@@ -22,7 +23,7 @@ import {
   Size,
   Point,
   MarkerImage,
- 
+  Status,
 } from 'kakao-maps-sdk';
 
 
@@ -38,7 +39,7 @@ export class HomePage {
   mapConfig = { width: '100%', height: '100%' };
   flagg = true;
   marker;
-  KaKaoJavascriptAPIKey = '172283aea22a2859764d0f5c96a12445';
+  KaKaoJavascriptAPIKey = 'fb4502f702724dbd21ef0a97b1a22456';
   
   constructor(public navCtrl: NavController, public modalCtrl : ModalController,
     public _kakaoMapsProvider: KakaoMapsProvider,
@@ -50,10 +51,15 @@ export class HomePage {
     this.initPage();
     this.initializeMap();
 
+    this.datas = [
+      {
+        b:1
+      }
+    ]
+
     console.log(products);
     //this.maps = window['daum'];
 
-    
     this.current = {
       lat: 37.6,
       lng: 127
@@ -93,6 +99,7 @@ export class HomePage {
                 // console.log(res);
               });
 
+              this.geocoder = new Geocoder();
               this.getNearestShelter(5);
               this.generateMarker();
 
@@ -107,19 +114,20 @@ export class HomePage {
         // console.log('catch ', e);
       });
   }
-  private daum:any;
+  //private daum:any;
   private maps:any;
   private title :any;
   private current:any;
-
+  private geocoder:any;
   private shelter:any;
-
-      // resp.coords.longitude lng
+  private datas : any;
   
-  private _productURL = 'api/products/products.json';    
- 
-  getLocalData() {
+  // resp.coords.longitude lng
+  
+  private _productURL = 'api/products/products.json';
 
+  getLocalData() {
+    
     
     //console.log(this.file.dataDirectory);
     //this.file.readAsText(this.file.applicationDirectory + "www/assets", "data.json").then(...);
@@ -135,20 +143,21 @@ export class HomePage {
     
     profileModal.onDidDismiss(data => {
       console.log(data);
+      this.current["lat"];
       this.title = data;
     });
     profileModal.present();
   }
 
-  showCardModal(){
-    let profileModal = this.modalCtrl.create("ShowSheltersPage");
+  showCardModal(data){
+    let profileModal = this.modalCtrl.create("ShowSheltersPage", this.shelter);
     profileModal.onDidDismiss(data =>{
       console.log("data");
     });
     profileModal.present();
   }
 
-  updateLocate(){
+  updateLocation(){
     console.log("read me");
     this.geoLocate.getCurrentPosition().then((resp) => {
       // resp.coords.latitude lat 
@@ -156,21 +165,22 @@ export class HomePage {
 
       this.current["lat"] = resp.coords.latitude;
       this.current["lng"] = resp.coords.longitude;
-      this.title = this.current["lat"];
 
       console.log(resp.coords.latitude);
       console.log(resp.coords.longitude);
+
       this.updateMap();
-     }).catch((error) => {
-       console.log('Error getting location', error);
-     });
-     let watch = this.geoLocate.watchPosition();
-     watch.subscribe((data) => {
+      this.getRoadAddress(); 
+    }).catch((error) => {
+      console.log('Error getting location', error);
+    });
+    let watch = this.geoLocate.watchPosition();
+    watch.subscribe((data) => {
       // data can be a set of coordinates, or an error (if an error occurred).
       // data.coords.latitude
       // data.coords.longitude
       console.log(data);
-     });
+    });
   }
 
   updateMap() {
@@ -179,7 +189,7 @@ export class HomePage {
     }
     this.shelter = [];
     this.current["marker"].setMap(null);
-    this.getNearestShelter(3);
+    this.getNearestShelter(5);
     this.generateMarker();
   }
   
@@ -187,86 +197,6 @@ export class HomePage {
     
   }
 
-  addToolbox() {
-    // 도형 스타일을 변수로 설정합니다
-    var strokeColor = '#39f',
-      fillColor = '#cce6ff',
-      fillOpacity = 0.5,
-      hintStrokeStyle = 'dash';
-
-    var options = {
-      // Drawing Manager를 생성할 때 사용할 옵션입니다
-      map: this._kakaoMapsProvider.getMapInstance(), // Drawing Manager로 그리기 요소를 그릴 map 객체입니다
-      drawingMode: [
-        OverlayType.MARKER,
-        OverlayType.ARROW,
-        OverlayType.POLYLINE,
-        OverlayType.RECTANGLE,
-        OverlayType.CIRCLE,
-        OverlayType.ELLIPSE,
-        OverlayType.POLYGON,
-      ],
-      // 사용자에게 제공할 그리기 가이드 툴팁입니다
-      // 사용자에게 도형을 그릴때, 드래그할때, 수정할때 가이드 툴팁을 표시하도록 설정합니다
-      guideTooltip: ['draw', 'drag', 'edit'],
-      markerOptions: {
-        draggable: true,
-        removable: true,
-      },
-      arrowOptions: {
-        draggable: true,
-        removable: true,
-        strokeColor: strokeColor,
-        hintStrokeStyle: hintStrokeStyle,
-      },
-      polylineOptions: {
-        draggable: true,
-        removable: true,
-        strokeColor: strokeColor,
-        hintStrokeStyle: hintStrokeStyle,
-      },
-      rectangleOptions: {
-        draggable: true,
-        removable: true,
-        strokeColor: strokeColor,
-        fillColor: fillColor,
-        fillOpacity: fillOpacity,
-      },
-      circleOptions: {
-        draggable: true,
-        removable: true,
-        strokeColor: strokeColor,
-        fillColor: fillColor,
-        fillOpacity: fillOpacity,
-      },
-      ellipseOptions: {
-        draggable: true,
-        removable: true,
-        strokeColor: strokeColor,
-        fillColor: fillColor,
-        fillOpacity: fillOpacity,
-      },
-      polygonOptions: {
-        draggable: true,
-        removable: true,
-        strokeColor: strokeColor,
-        fillColor: fillColor,
-        fillOpacity: fillOpacity,
-      },
-    };
-
-    // 위에 작성한 옵션으로 Drawing Manager를 생성합니다
-    var manager = new DrawingManager(options);
-
-    // Toolbox를 생성합니다.
-    // Toolbox 생성 시 위에서 생성한 DrawingManager 객체를 설정합니다.
-    // DrawingManager 객체를 꼭 설정해야만 그리기 모드와 매니저의 상태를 툴박스에 설정할 수 있습니다.
-    var toolbox = new Toolbox({ drawingManager: manager });
-
-    // 지도 위에 Toolbox를 표시합니다
-    // daum.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOP은 위 가운데를 의미합니다.
-    this._kakaoMapsProvider.getMapInstance().addControl(toolbox.getElement(), ControlPosition.TOP);
-  }
 
   getRandomInRange(from, to, fixed) {    
     return (Math.random() * (to - from) + from).toFixed(fixed) * 1;    
@@ -296,6 +226,49 @@ export class HomePage {
       return (rad * 180.0 / Math.PI);
   }
 
+  setBoundsForMe(index) {
+    var centerLatArray = [];
+    var centerLngArray = [];
+    
+    if (isNaN(Number(this.current.lat))) {
+
+    } else {
+      centerLatArray.push(Number(this.current.lat))
+    }
+
+    if (isNaN(Number(this.current.lng))) {
+
+    } else {
+      centerLngArray.push(Number(this.current.lng))
+    }
+
+    if (isNaN(Number(this.shelter[index].lat))) {
+
+    } else {
+      centerLatArray.push(Number(this.shelter[index].lat))
+    }
+
+    if (isNaN(Number(this.shelter[index].lng))) {
+
+    } else {
+      centerLngArray.push(Number(this.shelter[index].lng))
+    }
+    
+    var centerLatSum = centerLatArray.reduce(function(a, b) { return a + b; });
+   var centerLngSum = centerLngArray.reduce(function(a, b) { return a + b; });
+
+   var centerLat = centerLatSum / (2);
+   var centerLng = centerLngSum / (2);
+   
+   console.log(centerLat);
+   console.log(centerLng);
+
+   this._kakaoMapsProvider.getMapInstance().setCenter(new LatLng(centerLat, centerLng));
+   this._kakaoMapsProvider.getMapInstance().setLevel(8);
+
+    console.log(this.shelter[index]);
+  }
+
   getNearestShelter(max) {
     var local_shelter = this.getNearShelter(20);
     for (let index = 0; index < local_shelter.length; index++) {
@@ -308,15 +281,28 @@ export class HomePage {
     }).slice(0, max);
 
     this.shelter = rShelter;
+
     return rShelter;
   }
 
+  searchDetailAddrFromCoords(coords, callback) {
+    // callback = callback.apply(this);
+    this.geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
+  }
+
+  getRoadAddress() {
+    this.searchDetailAddrFromCoords(new LatLng(this.current.lat, this.current.lng), function (result, status) {
+        if (status === Status.OK) {
+          // window.title = result[0]["address"]["address_name"]
+          console.log(result[0]["address"]["address_name"]);
+          // this.title = "1";
+        }
+    });
+}
+
   generateMarker() {
     // 대피소 마커 생성
-    var bounds = new LatLngBounds(
-      new LatLng(this.current["lat"], this.current["lng"]),
-      new LatLng(this.current["lat"], this.current["lng"])
-    );
+    //this.rectangle();
 
     var position = null;
     var shelterMarkerImage = new MarkerImage(
@@ -325,12 +311,27 @@ export class HomePage {
       {offset: new Point(0, 0)}
     );
 
+    var centerLatArray = [];
+    var centerLngArray = [];
+
     for (let i = 0; i < this.shelter.length; i++) {
+      console.log(this.shelter[i]);
       position = new LatLng(
       parseFloat(this.shelter[i]["lat"]),
       parseFloat(this.shelter[i]["lng"])
         );
-        bounds.extend(position);
+
+        if (isNaN(Number(position.jb))) {
+
+        } else {
+          centerLatArray.push(Number(position.jb))
+        }
+
+        if (isNaN(Number(position.ib))) {
+
+        } else {
+          centerLngArray.push(Number(position.ib))
+        }
         
         this.shelter[i]["marker"] = new Marker({
             position: position,
@@ -341,7 +342,32 @@ export class HomePage {
 
     // 현재 위치 마커 생성
     position = new LatLng(this.current["lat"], this.current["lng"]);
-    bounds.extend(position);
+
+   
+    if (isNaN(Number(position.jb))) {
+
+    } else {
+      centerLatArray.push(Number(position.jb))
+    }
+
+    if (isNaN(Number(position.ib))) {
+
+    } else {
+      centerLngArray.push(Number(position.ib))
+    }
+    
+console.log(centerLatArray);
+    var centerLatSum = centerLatArray.reduce(function(a, b) { return a + b; });
+   var centerLngSum = centerLngArray.reduce(function(a, b) { return a + b; });
+
+   var centerLat = centerLatSum / (this.shelter.length + 1);
+   var centerLng = centerLngSum / (this.shelter.length + 1);
+   
+   console.log(centerLat);
+   console.log(centerLng);
+
+   this._kakaoMapsProvider.getMapInstance().setCenter(new LatLng(centerLat, centerLng));
+   this._kakaoMapsProvider.getMapInstance().setLevel(7);
 
     this.current["marker"] = new Marker({
         position: position,
@@ -394,6 +420,4 @@ export class HomePage {
     this.mapConfig = option;
     this.flagg = !this.flagg;
   }
-
-  
 }

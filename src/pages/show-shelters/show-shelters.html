@@ -8,18 +8,17 @@
 
   <ion-navbar>
     <img src="../../assets/icon/Group 3@3x.png" width=20 height=20 (click)="dismiss()">   
-    
   </ion-navbar>
 
 </ion-header>
 
 <ion-content padding>
-    <ion-item *ngFor="let data of datas">
-      <div style="font-size:10px">최대 수용 인원 : {{data.capacity}}</div>
-      <div style="font-size:20px">{{data.schoolName}}</div>
-      <div style="font-size:16px">{{data.address}}</div>
+    <ion-item *ngFor="let data of shelter">
+      <div style="font-size:10px">최대 수용 인원 : {{data.accept_num}}</div>
+      <div style="font-size:20px">{{data.name}}</div>
+      <div style="font-size:16px">{{data.name}}</div>
       <div>
-        <span style="font-size:16px;color:blue">{{data.phone}}</span>
+        <span style="font-size:16px;color:blue">{{data.tel}}</span>
         <img src="../../assets/imgs/group.png" style="float:right;width:84;height:30;" (click)="findPath()">
       </div>
       
