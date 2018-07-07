@@ -1,14 +1,11 @@
 <ion-menu [content]="content">
-  <ion-content class="no-scroll">
+  <ion-content>
     <ion-list>
-      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-        <div style="display:flex; font-size: 16px;"><img [src]="p.src" style="margin-right:32px; width:21px; height:21px;">{{p.title}}</div>
-      </button>
+      <ion-item *ngFor="let p of pages" (click)="openPage(p)">
+        <img [src]="p.src" style="margin-right:32px; width:21px; height:21px;">{{p.title}}
+      </ion-item>
     </ion-list>
   </ion-content>
-
-
-
 </ion-menu>
 
 <!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
