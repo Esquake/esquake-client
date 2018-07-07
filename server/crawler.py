@@ -63,7 +63,6 @@ class Crawler:
                         "headings": {"en": title}, "contents": {"en": content},
                         "smallicon": "ic_launcher_APP.png"}
 
-            req = requests.post("https://onesignal.com/api/v1/notifications", headers=header, data=json.dumps(payload))
             if response["response"]["body"]["items"] is None:
                 continue
                 pass

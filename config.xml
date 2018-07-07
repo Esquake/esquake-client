@@ -2,7 +2,7 @@
 <widget id="io.esquake.openhack" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>esquake</name>
     <description>An awesome Ionic/Cordova app.</description>
-    <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
+    <author email="hi@ionicframework" href="http://github.com/esquake/esquake/">Esquake Team</author>
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
@@ -85,5 +85,5 @@
         <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="To locate you" />
     </plugin>
     <plugin name="cordova-plugin-file" spec="^6.0.1" />
-    <engine name="android" spec="7.0.0" />
+    <engine name="android" spec="7.1.0" />
 </widget>
