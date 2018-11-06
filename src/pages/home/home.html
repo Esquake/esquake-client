@@ -1,25 +1,4 @@
-<!-- <ion-header no-border> -->
-<ion-header>
-  <ion-navbar>
-    <ion-buttons left>
-      <button ion-button icon-only menuToggle>
-        <ion-icon ios="ios-menu-outline" md="ios-menu-outline" color="main"></ion-icon>
-      </button>
-    </ion-buttons>
-    <ion-title class="title" (click)="showModal()">
-      <!-- {{title}} -->
-      아아
-      <ion-icon ios="ios-arrow-dropdown" md="ios-arrow-dropdown" color="main"></ion-icon>
-    </ion-title>
-    <ion-buttons right>
-      <button ion-button icon-only>
-        <ion-icon ios="ios-locate-outline" md="ios-locate-outline" color="main"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-navbar>
-</ion-header>
-
-<ion-content class="no-scroll">
+<ion-content nopadding class="no-scroll">
   <!-- 가까운 대피소 슬라이드 뷰 -->
   <ion-slides class="shelter-location-slide">
     <ion-slide *ngFor="let data of shelter" (click)="showCardModal(data)" class="shelter-location">
