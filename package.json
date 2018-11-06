@@ -31,12 +31,14 @@
     "cordova-android": "7.0.0",
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-geolocation": "^4.0.1",
+    "angularfire2": "5.0.0-rc.4",
     "cordova-plugin-googlemaps": "^2.4.6",
     "cordova-plugin-ionic-keyboard": "^2.1.3",
     "cordova-plugin-ionic-webview": "^2.2.0",
     "cordova-plugin-splashscreen": "^5.0.2",
     "cordova-plugin-statusbar": "^2.4.2",
     "cordova-plugin-whitelist": "^1.3.3",
+    "firebase": "^4.9.0",
     "ionic-angular": "3.9.2",
     "ionicons": "3.0.0",
     "onesignal-cordova-plugin": "^2.4.5",
@@ -63,6 +65,12 @@
       "cordova-plugin-ionic-keyboard": {},
       "cordova-plugin-geolocation": {
         "GEOLOCATION_USAGE_DESCRIPTION": "To locate you"
+      },
+      "cordova-plugin-googlemaps": {
+        "API_KEY_FOR_ANDROID": "AIzaSyCRd5A8lixqVecAjaJAnrr6g8hkhY5txfo",
+        "API_KEY_FOR_IOS": "AIzaSyCRd5A8lixqVecAjaJAnrr6g8hkhY5txfo",
+        "PLAY_SERVICES_VERSION": "15.0.1",
+        "ANDROID_SUPPORT_V4_VERSION": "27.+"
       }
     },
     "platforms": [

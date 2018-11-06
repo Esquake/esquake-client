@@ -88,4 +88,10 @@
         <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="To locate you" />
     </plugin>
     <allow-navigation href="http://192.168.29.158:8101" />
+    <plugin name="cordova-plugin-googlemaps" spec="^2.4.6">
+        <variable name="API_KEY_FOR_ANDROID" value="AIzaSyCRd5A8lixqVecAjaJAnrr6g8hkhY5txfo" />
+        <variable name="API_KEY_FOR_IOS" value="AIzaSyCRd5A8lixqVecAjaJAnrr6g8hkhY5txfo" />
+        <variable name="PLAY_SERVICES_VERSION" value="15.0.1" />
+        <variable name="ANDROID_SUPPORT_V4_VERSION" value="27.+" />
+    </plugin>
 </widget>
