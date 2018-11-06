@@ -16,10 +16,7 @@ import { IonicPage, NavController, NavParams, ViewController, Slides } from 'ion
 export class EqBehaviorPage {
   
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    public viewCtrl: ViewController
-  ) {
-    
-    
+    public viewCtrl: ViewController) {    
   }
 
   slides = [
@@ -41,11 +38,6 @@ export class EqBehaviorPage {
   dismiss(){
     this.viewCtrl.dismiss();
   }
-
-
-  
   slideChanged(){
-    
   }
-
 }

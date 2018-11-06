@@ -1,16 +1,3 @@
-<ion-header>
-  <ion-navbar>
-    <ion-buttons left>
-      <button ion-button icon-only (click)="dismiss()">
-        <ion-icon ios="ios-arrow-dropleft-outline" md="ios-arrow-dropleft-outline" color="main"></ion-icon>
-      </button>
-    </ion-buttons>
-    <ion-title class="title" (click)="showModal()">
-      지진행동지침
-    </ion-title>
-  </ion-navbar>
-</ion-header>
-
 <ion-content padding class="no-scroll">
   <ion-slides pager (ionSlideDidChange)="slideChanged()">
     <ion-slide *ngFor="let slide of slides">

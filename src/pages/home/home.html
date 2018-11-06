@@ -7,7 +7,8 @@
       </button>
     </ion-buttons>
     <ion-title class="title" (click)="showModal()">
-      {{title}}
+      <!-- {{title}} -->
+      아아
       <ion-icon ios="ios-arrow-dropdown" md="ios-arrow-dropdown" color="main"></ion-icon>
     </ion-title>
     <ion-buttons right>
@@ -29,10 +30,7 @@
       <div id="shelter-address">{{data.road_address}}</div>
     </ion-slide>
   </ion-slides>
-  <!-- 다음 지도 -->
-  <kakao-maps id="maps" [mapConfig]="mapConfig">
-  </kakao-maps>
+
 </ion-content>
-<!-- <img src="../../assets/icon/ic_GPS2.png" width="40" height="40" (click)="showCardModal()"> -->
 
 

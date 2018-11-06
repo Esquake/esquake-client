@@ -1,8 +1,7 @@
 {
-  "name": "esquake",
-  "app_id": "",
-  "type": "ionic-angular",
+  "name": "tappage",
   "integrations": {
     "cordova": {}
-  }
+  },
+  "type": "ionic-angular"
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 /**
  * Generated class for the EqHistoryPage page.
@@ -15,16 +15,11 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
 })
 export class EqHistoryPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-    public viewCtrl:ViewController
-  ) {
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad EqHistoryPage');
   }
-  
-  dismiss(){
-    this.viewCtrl.dismiss();
-  }
+
 }
