@@ -5,6 +5,7 @@ import { MyApp } from './app.component';
 
 // Map plugin
 import { Geolocation } from '@ionic-native/geolocation';
+import { GoogleMaps } from '@ionic-native/google-maps';
 
 // Pages
 import { HomePage } from '../pages/home/home';
@@ -61,6 +62,7 @@ export const firebaseConfig = {
     StatusBar,
     Geolocation,
     SplashScreen,
+    GoogleMaps,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     OneSignal
   ]
