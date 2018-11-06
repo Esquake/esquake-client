@@ -15,6 +15,19 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { OneSignal } from '@ionic-native/onesignal';
 
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { firebaseKey } from '../key/firebaseKey';
+
+export const firebaseConfig = {
+  apiKey: firebaseKey['apiKey'],
+  authDomain: firebaseKey['authDomain'],
+  databaseURL: firebaseKey['databaseURL'],
+  projectId: firebaseKey['projectId'],
+  storageBucket: firebaseKey['storageBucket'],
+  messagingSenderId: firebaseKey['messagingSenderId']
+};
+
 @NgModule({
   declarations: [
     MyApp,
@@ -27,7 +40,9 @@ import { OneSignal } from '@ionic-native/onesignal';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFirestoreModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
