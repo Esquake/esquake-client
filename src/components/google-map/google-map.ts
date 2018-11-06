@@ -1,17 +1,15 @@
-import { NavController } from 'ionic-angular';
-
 import { Component, ViewChild } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Platform } from 'ionic-angular';
 import * as products from "../../assets/shelter.json";
 import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder';
 
-
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+  selector: 'google-map',
+  templateUrl: 'google-map.html'
 })
-export class HomePage {
+
+export class GoogleMapComponent {
 
   @ViewChild("map") mapElement;
   map: any;
@@ -109,14 +107,13 @@ export class HomePage {
       icon: { url : '../../assets/imgs/currentMarkerImage.png'}
     });
     
-    // var service = new google.maps.places.PlacesService(this.map);
+    var service = new google.maps.places.PlacesService(this.map);
     
 
     var otherMarker, i;
     var infowindow = new google.maps.InfoWindow();
 
     for (i = 0; i < this.shelter.length; i++) {
-      console.log("`_~")
       console.log(this.shelter[i]['dist'])
       otherMarker = new google.maps.Marker({
         position: new google.maps.LatLng(this.shelter[i]['lat'], this.shelter[i]['lng']),

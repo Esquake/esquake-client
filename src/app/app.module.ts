@@ -19,6 +19,10 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { firebaseKey } from '../key/firebaseKey';
 
+import { GoogleMapComponent } from '../components/google-map/google-map'
+import { Geolocation } from '@ionic-native/geolocation';
+import { NativeGeocoder } from '@ionic-native/native-geocoder';
+
 export const firebaseConfig = {
   apiKey: firebaseKey['apiKey'],
   authDomain: firebaseKey['authDomain'],
@@ -36,7 +40,8 @@ export const firebaseConfig = {
     EqBehaviorPage,
     EqHistoryPage,
     SettingPage,
-    ListPage
+    ListPage,
+    GoogleMapComponent
   ],
   imports: [
     BrowserModule,
@@ -55,13 +60,16 @@ export const firebaseConfig = {
     EqBehaviorPage,
     EqHistoryPage,
     SettingPage,
-    ListPage
+    ListPage,
+    GoogleMapComponent
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    OneSignal
+    OneSignal,
+    NativeGeocoder,
+    Geolocation
   ]
 })
 export class AppModule {}
