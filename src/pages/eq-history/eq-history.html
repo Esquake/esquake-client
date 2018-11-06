@@ -8,6 +8,19 @@
 
   <div class="container">
     <!-- <div class="eq-item" *ngFor="let item of history | async"> -->
+    <ion-grid class="" *ngFor="let item of temp">
+      <ion-row>
+        <ion-col col-12>{{item.tmEqk}}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-4>규모 {{ item.mt }}</ion-col>
+        <ion-col col-8>{{ item.rem }}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12>{{ item.loc }}</ion-col>
+      </ion-row>
+    </ion-grid>
+    <!--
     <div class="eq-item" *ngFor="let item of temp">
       <p class="item-time">
         {{item.tmEqk}}
@@ -24,6 +37,8 @@
         {{ item.loc }}
       </span>
     </div>
+    -->
   </div>
+  
 
 </ion-content>

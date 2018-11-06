@@ -40,7 +40,10 @@ export const firebaseConfig = {
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, {
+      iconMode: 'md',
+      menuType: 'overlay',
+    }),
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule,
   ],
