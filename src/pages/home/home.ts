@@ -17,6 +17,7 @@ export class HomePage {
   map: any;
   coords: any;
   address: any;
+  temps:any[] = [];
   private shelter: any;
   constructor(private geolocation: Geolocation,
     private platform: Platform,
@@ -43,6 +44,7 @@ export class HomePage {
         this.coords.lat = pos.coords.latitude
         this.coords.lng = pos.coords.longitude
         console.log(this.coords.lat, this.coords.lng)
+        
         this.getNearestShelter(5);
         this.initMap();
       }).catch((error) => {
@@ -66,7 +68,9 @@ export class HomePage {
     var rShelter = local_shelter.sort(function (a, b) {
       return a.dist - b.dist;
     }).slice(0, max);
+
     this.shelter = rShelter;
+
     return rShelter;
   }
 
@@ -116,8 +120,9 @@ export class HomePage {
     var infowindow = new google.maps.InfoWindow();
 
     for (i = 0; i < this.shelter.length; i++) {
-      console.log("`_~")
-      console.log(this.shelter[i]['dist'])
+      console.log("`_~");
+      console.log(this.shelter[i]['dist']);
+      this.temps.push(this.shelter[i])
       otherMarker = new google.maps.Marker({
         position: new google.maps.LatLng(this.shelter[i]['lat'], this.shelter[i]['lng']),
         map: this.map,
@@ -131,6 +136,7 @@ export class HomePage {
         }
       })(marker, i));
     }
+    console.log(this.temps)
   }
   
 }

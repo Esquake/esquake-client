@@ -1,14 +1,14 @@
 <ion-content nopadding class="no-scroll">
   <div #map id="map"></div>
   <!-- 가까운 대피소 슬라이드 뷰 -->
-  <!-- <ion-slides class="shelter-location-slide">
-    <ion-slide *ngFor="let data of shelter" (click)="showCardModal(data)" class="shelter-location">
+  <ion-slides class="shelter-location-slide">
+    <ion-slide *ngFor="let data of temps" (click)="showCardModal(data)" class="shelter-location">
       <div id="shelter-info">
         <div id="shelter-name">{{data.name}}</div>
         <div id="shelter-distance">{{data.dist}}</div>
       </div>
       <div id="shelter-address">{{data.road_address}}</div>
     </ion-slide>
-  </ion-slides> -->
+  </ion-slides>
 
 </ion-content>
