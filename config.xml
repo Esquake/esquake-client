@@ -83,5 +83,9 @@
     <plugin name="cordova-plugin-ionic-webview" spec="^2.0.0" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
     <plugin name="onesignal-cordova-plugin" spec="^2.4.5" />
+    <plugin name="cordova-plugin-geolocation" spec="^4.0.1">
+        <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="To locate you" />
+    </plugin>
+    <allow-navigation href="http://192.168.29.158:8103" />
     <engine name="android" spec="7.0.0" />
 </widget>

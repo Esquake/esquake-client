@@ -15,6 +15,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { OneSignal } from '@ionic-native/onesignal';
 
+import { Geolocation } from '@ionic-native/geolocation'
+
 @NgModule({
   declarations: [
     MyApp,
@@ -43,7 +45,8 @@ import { OneSignal } from '@ionic-native/onesignal';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    OneSignal
+    OneSignal,
+    Geolocation
   ]
 })
 export class AppModule {}

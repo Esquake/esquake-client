@@ -20,6 +20,7 @@
 </ion-header>
 
 <ion-content class="no-scroll">
+  <div #map id="map"></div>
   <!-- 가까운 대피소 슬라이드 뷰 -->
   <ion-slides class="shelter-location-slide">
     <ion-slide *ngFor="let data of shelter" (click)="showCardModal(data)" class="shelter-location">
