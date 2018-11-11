@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons left>
+      <button ion-button icon-only (click)="dismissModal()">
+        <ion-icon ios="ios-arrow-dropleft-outline" md="ios-arrow-dropleft-outline" color="main"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>
+      주소 검색
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <!-- input 받는 텍스트 상자 하나 만들기 -->
+    <!-- user가 input 값 넣기 -->
+    <!-- 그 input을 ts로 넘기기 -->
+    <!-- url 에서 get한 body list up -->
+    <ion-icon name="ios-search-outline"></ion-icon>
+    <ion-input placeholder="도로명 주소를 입력해주세요."[(ngModel)]="srchwrd"></ion-input>
+    <button ion-button icon-only (click)='datapassing()'>Search</button>
+    <button ion-button icon-only (click)="dismiss()">dismiss</button>
+    
+    <div *ngIf="nthflag">
+      <h2>찾으시는 주소가 없습니다.</h2>
+    </div>
+
+    <div *ngIf="recentflag">
+      <ion-item *ngFor="let recent of recents">
+        <h2>{{recent}}</h2>
+      </ion-item>   
+    </div>
+
+    <ion-item *ngFor="let road of roads" (click)="setLocation(road)">
+      <h2>{{road}}</h2>
+    </ion-item>
+</ion-content>

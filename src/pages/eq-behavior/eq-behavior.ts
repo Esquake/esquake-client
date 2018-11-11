@@ -32,7 +32,7 @@ export class EqBehaviorPage {
   ];
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad EqBehaviorPage');
+    // console.log('ionViewDidLoad EqBehaviorPage');
   }
 
   dismiss(){

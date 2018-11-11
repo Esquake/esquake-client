@@ -12,19 +12,18 @@ import { Observable } from 'rxjs/Observable';
 export class EqHistoryPage {
 
   history: Observable<any[]>;
-  temp: any;
+  earthquake: any;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public viewCtrl:ViewController, public afs: AngularFirestore
   ) {
-    this.history = this.afs.collection('earthquake').valueChanges();
-    this.afs.collection('earthquake').valueChanges().subscribe(data => {
-      console.log(data);
-      this.temp = data ;
+    this.afs.collection('earthquake', ref => ref.orderBy('tmEqk', 'desc')).valueChanges().subscribe(data => {
+      // console.log(data);
+      this.earthquake = data ;
     })
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad EqHistoryPage');
+    // console.log('ionViewDidLoad EqHistoryPage');
   }
   
   dismiss(){
