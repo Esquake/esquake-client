@@ -1,6 +1,7 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { HttpModule } from '@angular/http';
 import { MyApp } from './app.component';
 
 // Pages
@@ -10,6 +11,8 @@ import { EqBehaviorPage } from '../pages/eq-behavior/eq-behavior';
 import { EqHistoryPage } from '../pages/eq-history/eq-history';
 import { SettingPage } from '../pages/setting/setting';
 import { ListPage } from '../pages/list/list';
+import { EqDetailPage } from '../pages/eq-detail/eq-detail';
+import { FindShelterPage } from '../pages/find-shelter/find-shelter';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -22,6 +25,9 @@ import { firebaseKey } from '../key/firebaseKey';
 import { GoogleMapComponent } from '../components/google-map/google-map'
 import { Geolocation } from '@ionic-native/geolocation';
 import { NativeGeocoder } from '@ionic-native/native-geocoder';
+
+import { PipesModule } from '../pipes/pipes.module';
+import { AlertProvider } from '../providers/alert/alert';
 
 export const firebaseConfig = {
   apiKey: firebaseKey['apiKey'],
@@ -39,6 +45,8 @@ export const firebaseConfig = {
     TabsPage,
     EqBehaviorPage,
     EqHistoryPage,
+    EqDetailPage,
+    FindShelterPage,
     SettingPage,
     ListPage,
     GoogleMapComponent
@@ -48,9 +56,12 @@ export const firebaseConfig = {
     IonicModule.forRoot(MyApp, {
       iconMode: 'md',
       menuType: 'overlay',
+      statusbarPadding: false,
     }),
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule,
+    PipesModule,
+    HttpModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -59,6 +70,8 @@ export const firebaseConfig = {
     TabsPage,
     EqBehaviorPage,
     EqHistoryPage,
+    EqDetailPage,
+    FindShelterPage,
     SettingPage,
     ListPage,
     GoogleMapComponent
@@ -69,7 +82,8 @@ export const firebaseConfig = {
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     OneSignal,
     NativeGeocoder,
-    Geolocation
+    Geolocation,
+    AlertProvider
   ]
 })
 export class AppModule {}
