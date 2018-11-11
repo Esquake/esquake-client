@@ -1,3 +1,16 @@
 page-setting {
-
+  font-family: "Noto Sans", "Noto Sans CJK KR";
+  ion-range {
+    margin: 0 20px;
+  }
+  .setting-info {
+    text-align: center;
+  }
+  .setting-notification {
+    margin: 0 10%;
+  }
+  .setting-image {
+    text-align: center;
+    margin: 20%;
+  }
 }

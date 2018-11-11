@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { AlertProvider } from '../../providers/alert/alert';
 /**
  * Generated class for the SettingPage page.
  *
@@ -15,11 +15,18 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class SettingPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  minNotification: any = 2;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    public AlertProvider:AlertProvider,) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad SettingPage');
+    // console.log('ionViewDidLoad SettingPage');
+  }
+  changet() {
+    // console.log(this.minNotification);
+    this.AlertProvider.presentToast(`${this.minNotification}이상의 지진만 알림받습니다.`)
   }
 
 }
