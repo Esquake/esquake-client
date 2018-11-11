@@ -1,8 +1,8 @@
 {
-  "name": "google",
+  "name": "esquake",
   "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "http://ionicframework.com/",
+  "author": "Esquake team",
+  "homepage": "https://github.com/esquake/esquake",
   "private": true,
   "scripts": {
     "start": "ionic-app-scripts serve",
@@ -51,7 +51,7 @@
     "@ionic/lab": "1.0.13",
     "typescript": "~2.6.2"
   },
-  "description": "An Ionic project",
+  "description": "esquake, from openhack project",
   "cordova": {
     "plugins": {
       "onesignal-cordova-plugin": {},
