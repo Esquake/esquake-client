@@ -1,4 +1,4 @@
-<ion-content nopadding>
+<ion-content padding>
     <!-- <br/><br/><br/><br/>
   <div style="text-align:center;">
     <img src="../../assets/icon/5@2x.png" class=center; style="position:absoulte; width:80%; background : no-repeat center center">
@@ -8,16 +8,17 @@
 
   <div class="container">
     <!-- <div class="eq-item" *ngFor="let item of history | async"> -->
-    <ion-grid class="" *ngFor="let item of temp">
-      <ion-row>
-        <ion-col col-12>{{item.tmEqk}}</ion-col>
+    <ion-grid class="eq-item" *ngFor="let item of earthquake">
+      <ion-row align-items-center>
+        <ion-col col-12 class="item-time">{{item.tmEqk | DatePipe}}</ion-col>
+        <!-- <ion-col col-12 class="item-time">{{ item.tmEqk }}</ion-col> -->
       </ion-row>
-      <ion-row>
-        <ion-col col-4>규모 {{ item.mt }}</ion-col>
-        <ion-col col-8>{{ item.rem }}</ion-col>
+      <ion-row align-items-center>
+        <ion-col col-4 class="item-mag">규모 {{ item.mt }}</ion-col>
+        <!-- <ion-col col-6 class="item-effect">{{ item.rem }}</ion-col> -->
       </ion-row>
-      <ion-row>
-        <ion-col col-12>{{ item.loc }}</ion-col>
+      <ion-row align-items-center>
+        <ion-col col-12 class="item-location">{{ item.loc }}</ion-col>
       </ion-row>
     </ion-grid>
     <!--

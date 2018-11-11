@@ -22,9 +22,38 @@ $app-direction: ltr;
 // To view all the possible Ionic variables, see:
 // http://ionicframework.com/docs/theming/overriding-ionic-variables/
 
+$loading-ios-background : trasparent;
+$loading-md-background : transparent;
+$loading-md-box-shadow-color : rgba(0, 0, 0, 0);
 
+$cordova-ios-statusbar-padding: 0px;
 
+$range-ios-knob-background-color: rgb(16, 102, 230);
+$range-ios-knob-width: 35px;
+$range-ios-bar-height: 5px;
+$range-ios-tick-height: 15px;
+$range-ios-tick-width: 15px;
+$range-ios-tick-border-radius: 15px;
 
+$range-md-knob-background-color: rgb(16, 102, 230);
+$range-md-knob-width: 35px;
+$range-md-bar-height: 5px;
+$range-md-tick-height: 15px;
+$range-md-tick-width: 15px;
+$range-md-tick-border-radius: 15px;
+$range-md-tick-background-color: #bdbdbd;
+$range-md-tick-active-background-color: rgb(16, 102, 230);
+
+ion-navbar.toolbar {
+  text-align: center;
+  .toolbar-title-ios, .toolbar-title-md {
+    font-size: 1.7rem !important;
+    font-weight: 400 !important;
+  }
+}
+.header-ios{
+  padding-top: 20px;
+}
 // Named Color Variables
 // --------------------------------------------------
 // Named colors makes it easy to reuse colors on various components.
@@ -38,7 +67,8 @@ $colors: (
   secondary:  #32db64,
   danger:     #f53d3d,
   light:      #f4f4f4,
-  dark:       #222
+  dark:       #222,
+  main: rgb(16, 102, 230),
 );
 
 
