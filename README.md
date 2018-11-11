@@ -1,5 +1,5 @@
 <div align="middle">
-  <img src="https://github.com/esquake/esquake/blob/master/resources/readme.png" height="250px" >
+  <img src="./readme/logo.png" height="250px" >
 </div>
 
 # ESQUAKE: 지진에서 탈출하라!!
