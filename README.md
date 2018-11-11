@@ -29,14 +29,14 @@ ESQUAKE는  지진 발생 알림과 동시에 가장 가까운 대피소를 알�
 > 현재 온 지진에 대한 정보와 함께 GPS 주소 혹은 입력 주소 기준 가까운 대피소를 하단 카드 형식으로 볼 수 있습니다.
 
 <p align="center">
-  <img src="https://github.com/esquake/esquake/blob/master/resources/popup.png">
+  <img src="./readme/home2.png" width="300">
 </p>
 
 ### 대피소 리스트
 > 하단 카드를 누르면 총 인원, 전화번호를 포함한 대피소의 더 자세한 정보를 리스트 형식으로 볼 수 있습니다.
 
 <p align="center">
-  <img src="https://github.com/esquake/esquake/blob/master/resources/shelterlist.png">
+  <img src="./readme/list.png" width="300">
 </p>
 
 ### 지진행동지침
