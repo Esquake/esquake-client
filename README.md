@@ -1,6 +1,6 @@
-<div align="middle">
-  <img src="./readme/logo.png" height="250px" >
-</div>
+<p align="middle">
+  <img src="./readme/logo.png" height="200" >
+</p>
 
 # ESQUAKE: 지진에서 탈출하라!!
 ## Introduction
@@ -22,7 +22,7 @@ ESQUAKE는  지진 발생 알림과 동시에 가장 가까운 대피소를 알�
 > 앱을 켜자마자 GPS 주소 혹은 입력된 주소를 기준으로 가까운 대피소를 하단 카드 형식으로 볼 수 있습니다.
 
 <p align="center">
-  <img src="https://github.com/esquake/esquake/blob/master/resources/myLoca.png">
+  <img src="./readme/home.png" width="300">
 </p>
 
 ### 지진 푸시를 통해 들어왔을 경우
@@ -43,7 +43,7 @@ ESQUAKE는  지진 발생 알림과 동시에 가장 가까운 대피소를 알�
 > 앱 내 데이터베이스에 저장된 지진행동지침 핸드북을 볼 수 있습니다. 인터넷 연결이 안되는 상황에도 열람이 가능합니다.
 
 <p align="center">
-  <img src="https://github.com/esquake/esquake/blob/master/resources/eq_guide.png">
+  <img src="./readme/action1.png" width="300">
 </p>
 
 
