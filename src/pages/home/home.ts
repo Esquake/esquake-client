@@ -1,10 +1,12 @@
-import { NavController } from 'ionic-angular';
-
+import { LoadingController, ModalController, Slides } from 'ionic-angular';
 import { Component, ViewChild } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Platform } from 'ionic-angular';
 import * as products from "../../assets/shelter.json";
 import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder';
+
+// Pages
+import { FindShelterPage } from '../find-shelter/find-shelter';
 
 
 @Component({
@@ -12,20 +14,25 @@ import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResul
   templateUrl: 'home.html'
 })
 export class HomePage {
-
+  @ViewChild(Slides) slides: Slides;
   @ViewChild("map") mapElement;
   map: any;
   coords: any;
   address: any;
   temps:any[] = [];
+  title: string = '현재 위치';
+
+  changeLocation:any;
+
   private shelter: any;
-  constructor(private geolocation: Geolocation,
-    private platform: Platform,
-    private nativeGeocoder: NativeGeocoder) {
+  constructor(private geolocation: Geolocation, private platform: Platform, 
+    public loadingCtrl: LoadingController, private nativeGeocoder: NativeGeocoder,
+    public modalCtrl : ModalController) {
+
     this.coords = {
       lat: null,
       lng: null
-    } 
+    }
   }
 
   search() {
@@ -39,21 +46,35 @@ export class HomePage {
   }
 
   ngOnInit() {
+    let loading = this.loadingCtrl.create({
+      spinner: 'hide',
+      content: `
+        <div class="custom-spinner-container">
+          <div class="custom-spinner-box">
+            <img src="../../assets/icon/group5.png"/>
+          </div>
+        </div>`,
+    });
+    loading.present();
     this.platform.ready().then(() => {
       this.geolocation.getCurrentPosition().then(pos => {
         this.coords.lat = pos.coords.latitude
         this.coords.lng = pos.coords.longitude
-        console.log(this.coords.lat, this.coords.lng)
+        // this.coords.lat = 36.1028648
+        // this.coords.lng = 129.3898267
+        // console.log(this.coords.lat, this.coords.lng)
         
         this.getNearestShelter(5);
         this.initMap();
+        loading.dismiss();
+        // console.log('아마..')
       }).catch((error) => {
         console.log(error);
-        console.log(JSON.stringify(error));
-        console.log("error");
+        // console.log(JSON.stringify(error));
+        // console.log("error");
       })
     })
-    console.log(this.coords)
+    // console.log(this.coords)
   }
 
   getNearestShelter(max) {
@@ -70,7 +91,6 @@ export class HomePage {
     }).slice(0, max);
 
     this.shelter = rShelter;
-
     return rShelter;
   }
 
@@ -98,11 +118,28 @@ export class HomePage {
     return (rad * 180.0 / Math.PI);
   }
 
+  slideChanged() {
+    let currentIndex = this.slides.getActiveIndex();
+    // console.log('Current index is', currentIndex);
+    // console.log(this.shelter[currentIndex]);
+    // console.log(this.shelter[currentIndex]['lat']);
+    // console.log(this.shelter[currentIndex]['lng']);
+
+    this.map.setCenter({
+      lat:parseFloat(this.shelter[currentIndex]['lat']),
+      lng:parseFloat(this.shelter[currentIndex]['lng'])
+    })
+  }
+
+  getCurrent() {
+    this.ngOnInit();
+  }
+  
   initMap() {
-    console.log(this.shelter)
+    // console.log(this.shelter)
     let mapOptions: google.maps.MapOptions = {
       center: this.coords,
-      zoom: 13,
+      zoom: 16,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     }
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions)
@@ -120,8 +157,8 @@ export class HomePage {
     var infowindow = new google.maps.InfoWindow();
 
     for (i = 0; i < this.shelter.length; i++) {
-      console.log("`_~");
-      console.log(this.shelter[i]['dist']);
+      // console.log("`_~");
+      // console.log(this.shelter[i]['dist']);
       this.temps.push(this.shelter[i])
       otherMarker = new google.maps.Marker({
         position: new google.maps.LatLng(this.shelter[i]['lat'], this.shelter[i]['lng']),
@@ -129,16 +166,23 @@ export class HomePage {
         icon: { url : '../../assets/imgs/icMarker.png'}
       });
 
-      google.maps.event.addListener(otherMarker, 'click', (function (otherMarker,i) {
-        return function () {
-          infowindow.setContent(this.shelter[i]['name']);
-          infowindow.open(this.map, this);
-        }
-      })(marker, i));
+      // google.maps.event.addListener(otherMarker, 'click', (function (otherMarker,i) {
+      //   return function () {
+      //     console.log("멀까임")
+      //     infowindow.setContent(this.shelter[i]['name']);
+      //     infowindow.open(this.map, this);
+      //   }
+      // })(marker, i));
     }
-    console.log(this.temps)
+    // console.log(this.temps)
   }
-  
+  showModal() {
+    let profileModal = this.modalCtrl.create(FindShelterPage);
+    
+    profileModal.onDidDismiss(data => { this.title = data; });
+
+    profileModal.present();
+  }
 }
 
 

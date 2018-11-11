@@ -1,13 +1,28 @@
+<ion-header>
+  <ion-navbar>
+    <!-- <ion-title class="title" (click)= "showModal()"> -->
+    <ion-title class="title">
+      {{ title }}
+      <ion-icon ios="ios-arrow-dropdown" md="ios-arrow-dropdown" color="main"></ion-icon>
+    </ion-title>
+    <ion-buttons right>
+      <button ion-button icon-only (click)="getCurrent()">
+        <ion-icon ios="ios-locate-outline" md="ios-locate-outline" color="main"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+  
 <ion-content nopadding class="no-scroll">
   <div #map id="map"></div>
   <!-- 가까운 대피소 슬라이드 뷰 -->
-  <ion-slides class="shelter-location-slide">
-    <ion-slide *ngFor="let data of temps" (click)="showCardModal(data)" class="shelter-location">
+  <ion-slides class="shelter-location-slide" (ionSlideDidChange)="slideChanged()">
+    <ion-slide *ngFor="let data of temps" class="shelter-location">
       <div id="shelter-info">
-        <div id="shelter-name">{{data.name}}</div>
-        <div id="shelter-distance">{{data.dist}}</div>
+        <div id="shelter-name">{{ data.name }}</div>
+        <div id="shelter-distance">{{ data.dist | DistancePipe}}m</div>
       </div>
-      <div id="shelter-address">{{data.road_address}}</div>
+      <div id="shelter-address">{{ data.road_address }}</div>
     </ion-slide>
   </ion-slides>
 

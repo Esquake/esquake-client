@@ -65,7 +65,7 @@ page-home {
 
     #shelter-distance {
       font-size: 16px;
-      color: black;
+      color: rgb(16, 102, 230);
       text-align: right;
     }
   }
@@ -74,6 +74,7 @@ page-home {
     margin-top: 10px;
     font-size: 12px;
     text-align: left;
+    color: rgb(51, 51, 51);
   }
 
 }
@@ -86,4 +87,14 @@ page-home {
   height: 100%;
   width: 100%;
   position: relative;
+
+  .gm-control-active.gm-fullscreen-control, .gmnoprint {
+    display: none;
+  }
+}
+
+div.loading-wrapper {
+  background-color: transparent !important;
+  -webkit-box-shadow: rgba(0, 0, 0, 0) !important;
+  box-shadow: rgba(0, 0, 0, 0) !important;
 }
