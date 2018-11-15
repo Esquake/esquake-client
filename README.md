@@ -47,14 +47,6 @@ ESQUAKE는  지진 발생 알림과 동시에 가장 가까운 대피소를 알�
 </p>
 
 
-## Usage Guide
-
-### earthquake data crawler
-```
-pip install xmltodict
-pip install firebase-admin
-```
-
 ## License
 Copyright (C) 2018-present,  OpenHackEsquake
 
